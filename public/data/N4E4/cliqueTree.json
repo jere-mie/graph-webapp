@@ -1,0 +1,10 @@
+{
+    "nodes":[
+        {"id": 0},
+        {"id": 3}
+    ],
+    "lastNodeId":3,
+    "links":[
+        {"source": 0, "target": 3}
+    ]
+}
