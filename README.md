@@ -14,3 +14,14 @@ Current Dependencies:
 ## Run
 Simply type `node ./server.js` in the directory to the start the server. Navigate to http://localhost:3000 to view the page
 
+## TODO
+Graph manipulation
+* Delete nodes without links
+
+Python integrating
+* [node-pty?](https://github.com/Microsoft/node-pty)
+* [python-sheel?](https://github.com/extrabacon/python-shell)
+
+Interface
+* [Bootstrap?](https://getbootstrap.com/)
+* Sidebar, allowing interaction with graph and request chordal graphs from server
