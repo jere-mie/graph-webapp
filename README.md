@@ -17,6 +17,7 @@ Simply type `node ./server.js` in the directory to the start the server. Navigat
 ## TODO
 Graph manipulation
 * Delete nodes without links
+* Delete duplicate links
 
 Python integrating
 * [node-pty?](https://github.com/Microsoft/node-pty)
