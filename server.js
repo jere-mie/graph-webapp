@@ -4,6 +4,7 @@ const port = 3000
 
 app.use(express.static('public'))
 
-// app.get('/', (req, res) => res.send('Hello World!'))
+// get port number from enviromne
+// process.env.PORT
 
 app.listen(port, () => console.log(`app running at http://localhost:${port}`))
