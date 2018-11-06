@@ -10,13 +10,13 @@ const svg = d3.select('#svgViewPort')
   .attr('height', height);
 
 // set file to load on start up
-fileName = "data/N4E4/chordalGraph.json"
+fileName = "N4E4/chordalGraph.json"
 importData(fileName);
 
 // init D3 force layout
 const force = d3.forceSimulation()
-  .force('link', d3.forceLink().id((d) => d.id).distance(150))
-  .force('charge', d3.forceManyBody().strength(-500))
+  .force('link', d3.forceLink().id((d) => d.id).distance(75))
+  .force('charge', d3.forceManyBody().strength(-1250))
   .force('x', d3.forceX(width / 2))
   .force('y', d3.forceY(height / 2))
   .on('tick', tick);
