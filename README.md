@@ -15,6 +15,9 @@ Current Dependencies:
 Simply type `node ./server.js` in the directory to the start the server. Navigate to http://localhost:3000 to view the page
 
 ## TODO
+
+Fix error when new graph is loaded and lines(paths) do not line up with source nodes
+
 Graph manipulation
 * Delete nodes without links
 * Delete duplicate links
