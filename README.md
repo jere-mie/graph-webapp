@@ -16,16 +16,14 @@ Simply type `node ./server.js` in the directory to the start the server. Navigat
 
 ## TODO
 
-Fix error when new graph is loaded and lines(paths) do not line up with source nodes
-
-Graph manipulation
-* Delete nodes without links
-* Delete duplicate links
+* Fix error when new graph is loaded and lines(paths) do not line up with source nodes
+* Sample graphs
 
 Python integrating
 * [node-pty?](https://github.com/Microsoft/node-pty)
 * [python-sheel?](https://github.com/extrabacon/python-shell)
 
-Interface
-* [Bootstrap?](https://getbootstrap.com/)
-* Sidebar, allowing interaction with graph and request chordal graphs from server
+
+Graph manipulation
+* Delete nodes without links
+* Delete duplicate links
