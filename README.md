@@ -21,7 +21,7 @@ Simply type `node ./server.js` in the directory to the start the server. Navigat
 
 Python integrating
 * [node-pty?](https://github.com/Microsoft/node-pty)
-* [python-sheel?](https://github.com/extrabacon/python-shell)
+* [python-shell?](https://github.com/extrabacon/python-shell)
 
 
 Graph manipulation
