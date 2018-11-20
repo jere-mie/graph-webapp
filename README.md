@@ -31,6 +31,7 @@ RESTful API
 Graph
 * Fix error when new graph is loaded and lines(paths) do not line up with source nodes
 * Allow user to see the clique tree, maybe add histogram in bottom right of the distribution of tress in the graph
+* Scroll to zoom in graph
 
 Graph manipulation
 * Delete nodes without links
