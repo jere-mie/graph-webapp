@@ -16,6 +16,7 @@ Simply type `node ./server.js` in the directory to the start the server. Navigat
 
 ## TODO
 
+* Add Home Page, like https://www.desmos.com
 * Sample graphs
 * Information about chordal graph
 
