@@ -16,13 +16,20 @@ Simply type `node ./server.js` in the directory to the start the server. Navigat
 
 ## TODO
 
-* Fix error when new graph is loaded and lines(paths) do not line up with source nodes
 * Sample graphs
+* Information about chordal graph
 
 Python integrating
 * [node-pty?](https://github.com/Microsoft/node-pty)
 * [python-shell?](https://github.com/extrabacon/python-shell)
 
+RESTful API
+* Request different graphs from server
+* Send current graph to check if it correct
+
+Graph
+* Fix error when new graph is loaded and lines(paths) do not line up with source nodes
+* Allow user to see the clique tree, maybe add histogram in bottom right of the distribution of tress in the graph
 
 Graph manipulation
 * Delete nodes without links
