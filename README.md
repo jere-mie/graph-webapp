@@ -27,11 +27,13 @@ Python integrating
 RESTful API
 * Request different graphs from server
 * Send current graph to check if it correct
+* [Tutorial](https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb)
 
 Graph
 * Fix error when new graph is loaded and lines(paths) do not line up with source nodes
 * Allow user to see the clique tree, maybe add histogram in bottom right of the distribution of tress in the graph
 * Scroll to zoom in graph
+* Allow user to upload graph data
 
 Graph manipulation
 * Delete nodes without links
