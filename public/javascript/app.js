@@ -1,6 +1,6 @@
 // set up SVG for D3
-const width = 960;
-const height = 500;
+const width = document.getElementById("svgViewPort").offsetWidth;
+const height = document.getElementById("svgViewPort").offsetHeight;
 const colors = d3.scaleOrdinal(d3.schemeCategory10);
 
 const svg = d3.select('#svgViewPort')
@@ -288,7 +288,7 @@ function keyup() {
 svg.on('mousedown', mousedown)
   .on('mousemove', mousemove)
   .on('mouseup', mouseup);
-d3.select(window)
+d3.select('#svgViewPort')
   .on('keydown', keydown)
   .on('keyup', keyup);
 restart();

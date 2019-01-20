@@ -1,0 +1,14 @@
+Python
+use uCGMain.py to know the operations to get generate graph
+    
+
+write own python code to generate the graph data in json
+
+
+
+
+use Python-Shell 
+    https://github.com/extrabacon/python-shell
+    https://www.npmjs.com/package/python-shell
+
+

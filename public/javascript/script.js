@@ -21,6 +21,25 @@ function importData(fileName) {
         });
 }
 
+function getGraph(numNodes, numEdges) {
+    d3.json("/api/v1/graph?numNodes="+numNodes+"&numEdges="+numEdges)
+        .then(function(d) {
+            // console.log(nodes)
+            // console.log(d.nodes)
+            // console.log(links)
+            // console.log(lastNodeId)
+
+            // check if nodes have changed
+            const cnodesIDs = nodes.map(n => n.id).toString()
+            const newNodesIDs = d.nodes.map(n => n.id).toString()
+            if(cnodesIDs != newNodesIDs)
+                nodes = d.nodes
+            lastNodeId = d.lastNodeId
+            links = d.links
+            restart()
+        });
+}
+
 // called button on page
 function btnOnClick(btnID) {
     if(btnID == "btnCompleteGraph")
@@ -35,7 +54,11 @@ function btnOnClick(btnID) {
     if(btnID == "btnCliqueTree")
         importData("/N4E4/cliqueTree.json")
 
-    if(btnID == "btnChordalGraph")
-        importData("/N4E4/chordalGraph.json")
+    if(btnID == "btnChordalGraph") {
+        // importData("/N4E4/chordalGraph.json")
+        numNodes = parseInt(document.getElementById('numNodes').value)
+        numEdges = parseInt(document.getElementById('numEdges').value)
+        getGraph(numNodes, numEdges)
+    }
 }
 

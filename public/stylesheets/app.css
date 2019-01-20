@@ -1,4 +1,4 @@
-svg {
+#svgViewPort svg {
     background-color: #FFF;
     cursor: default;
     -webkit-user-select: none;
@@ -6,9 +6,10 @@ svg {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    width: 100%;
   }
   
-  svg:not(.active):not(.ctrl) {
+  #svgViewPort svg:not(.active):not(.ctrl) {
     cursor: crosshair;
   }
   
@@ -19,7 +20,7 @@ svg {
     cursor: default;
   }
   
-  svg:not(.active):not(.ctrl) path.link {
+  #svgViewPort svg:not(.active):not(.ctrl) path.link {
     cursor: pointer;
   }
   
@@ -39,19 +40,16 @@ svg {
     stroke-width: 1.5px;
     cursor: pointer;
   }
-  
-  /* delete?
-  circle.node.reflexive {
-    stroke: #000 !important;
-    stroke-width: 2.5px;
-  } */
-  
-  text {
-    font: 12px sans-serif;
+
+  #svgViewPort text {
     pointer-events: none;
   }
   
-  text.id {
+  #svgViewPort text.id {
     text-anchor: middle;
     font-weight: bold;
+  }
+
+  #svgViewPort {
+    height: calc(100vh - 48px);
   }

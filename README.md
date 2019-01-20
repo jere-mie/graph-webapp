@@ -9,6 +9,7 @@ Once Nodejs and npm is installed and the repository download to a directory. In 
 
 Current Dependencies:
 * express
+* python-shell
 
 
 ## Run
@@ -16,13 +17,7 @@ Simply type `node ./server.js` in the directory to the start the server. Navigat
 
 ## TODO
 
-* Add Home Page, like https://www.desmos.com
-* Sample graphs
 * Information about chordal graph
-
-Python integrating
-* [node-pty?](https://github.com/Microsoft/node-pty)
-* [python-shell?](https://github.com/extrabacon/python-shell)
 
 RESTful API
 * Request different graphs from server
