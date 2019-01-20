@@ -13,7 +13,7 @@ Current Dependencies:
 
 
 ## Run
-Simply type `node ./server.js` in the directory to the start the server. Navigate to http://localhost:3000 to view the page
+Simply type `npm start` in the directory to the start the server. Navigate to http://localhost:3000 to view the page
 
 ## TODO
 
