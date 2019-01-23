@@ -15,21 +15,25 @@ app.get('/api/v1/graph', (req, res) => {
     let numEdges = req.query.numEdges
 
     let output = ''
-
-    // let py_options = {
-    //     mode: 'text',
-    //     pythonPath: 'C:/Python27/python.exe',
-    //     pythonOptions: [], // get print results in real-time
-    //     scriptPath: 'D:/Share/OneDrive/Documents/School/UWin Y4 Winter 2019/COMP 4990B Project Mgmt Techniques&Tools/Dev/Py_Program',
-    //     args: [numNodes, numEdges]
-    // };
-    let py_options = {
-        mode: 'text',
-        pythonPath: '/usr/bin/python',
-        pythonOptions: [], // get print results in real-time
-        scriptPath: "/Users/tajinder/OneDrive/Documents/School/UWin Y4 Winter 2019/COMP 4990B Project Mgmt Techniques&Tools/Dev/Py_Program/",
-        args: [numNodes, numEdges]
-    };
+    let py_options = {}
+    
+    if(process.platform === "win32") {
+        py_options = {
+            mode: 'text',
+            pythonPath: 'C:/Python27/python.exe',
+            pythonOptions: [], // get print results in real-time
+            scriptPath: 'Py_Program/',
+            args: [numNodes, numEdges]
+        };
+    } else {
+        py_options = {
+            mode: 'text',
+            pythonPath: '/usr/bin/python',
+            pythonOptions: [], // get print results in real-time
+            scriptPath: 'Py_Program/',
+            args: [numNodes, numEdges]
+        };
+    }
 
     ps.PythonShell.run('interface.py', py_options, (err, results) => {
         if (err) throw err;
