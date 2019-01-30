@@ -2,7 +2,8 @@ const express = require('express')
 const ps = require('python-shell')
 const app = express()
 
-app.use(express.static('public'))
+app.use(express.static('public/graph')) // graph page files
+app.use(express.static('public/main'))  // main page files
 
 // get port number from enviromne
 // process.env.PORT
@@ -13,6 +14,8 @@ app.listen(port, () => console.log(`app running at http://localhost:${port}`))
 app.get('/api/v1/graph', (req, res) => {
     let numNodes = req.query.numNodes
     let numEdges = req.query.numEdges
+    let btnId = req.query.btnId
+    let deletionStart = req.query.deletionStart
 
     let output = ''
     let py_options = {}
@@ -23,7 +26,7 @@ app.get('/api/v1/graph', (req, res) => {
             pythonPath: 'C:/Python27/python.exe',
             pythonOptions: [], // get print results in real-time
             scriptPath: 'Py_Program/',
-            args: [numNodes, numEdges]
+            args: [numNodes, numEdges, btnId, deletionStart]
         };
     } else {
         py_options = {
@@ -31,7 +34,7 @@ app.get('/api/v1/graph', (req, res) => {
             pythonPath: '/usr/bin/python',
             pythonOptions: [], // get print results in real-time
             scriptPath: 'Py_Program/',
-            args: [numNodes, numEdges]
+            args: [numNodes, numEdges, btnId, deletionStart]
         };
     }
 
@@ -56,13 +59,13 @@ app.get('/api/v1/graph', (req, res) => {
         function createLink(source, target) {
             return JSON.stringify({"source": source, "target": target})
         }
-
-        for(key in keys) {
-            // console.log(output[key])
+        
+        for(i=0; i < keys.length; i++) {
+            key = keys[i]
             // for(node in output[key]) {
-            for(i=0; i < output[key].length; i++) {
+            for(j=0; j < output[key].length; j++) {
                 node0 = parseInt(key)
-                node1 = output[key][i]
+                node1 = output[key][j]
                 if(linkpairs.includes(createLink(node1, node0))) {
                     continue
                 } else {
@@ -73,9 +76,7 @@ app.get('/api/v1/graph', (req, res) => {
 
         graph["links"]= linkpairs.map(JSON.parse)
 
-        // for(i=0; i < output)
         return res.status(200).send(graph)
     }
 
-    // return res.status(200).send(output)
 })

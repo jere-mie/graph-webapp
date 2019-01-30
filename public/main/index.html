@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Chordal Graph Generation</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/elegant-font/html-css/style.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/revolution/css/layers.css">
+	<link rel="stylesheet" type="text/css" href="vendor/revolution/css/navigation.css">
+	<link rel="stylesheet" type="text/css" href="vendor/revolution/css/settings.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/lightbox2/css/lightbox.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/dist/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/color.css">
+<!--===============================================================================================-->
+</head>
+<body class="animsition restyle-index">
+	
+	<header>
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+
+			<div class="wrap-menu-desktop">
+				<div class="limiter-menu-desktop">
+					
+					<!-- Logo desktop -->		
+					<a href="index.html" class="logo">
+						<img src="images/icons/logo.png" alt="IMG-LOGO">
+					</a>
+
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li>
+								<a href="index.html">Home</a>
+							</li>
+
+							<li>
+								<a href="graph.html">Graph</a>
+							</li>
+
+							<li>
+								Samples
+								<ul class="sub-menu">
+									<li><a href="small-sample.html">Small Sample</a></li>
+									<li><a href="medium-sample.html">Medium Sample</a></li>
+									<li><a href="large-sample.html">Large Sample</a></li>
+								</ul>
+							</li>
+
+							<li>
+								<a href="reading.html">Reading</a>
+							</li>
+
+							<li class="respon-sub-menu">
+								<a href="about-team.html">About Us</a>
+							</li>
+							<!--
+							<li class="respon-sub-menu">
+								<a href="contact.html">Contact</a>
+							</li>-->
+						</ul>
+					</div>					
+				</div>
+			</div>	
+		</div>
+
+
+		<!-- Header Mobile -->
+		<div class="wrap-header-mobile">
+			<!-- Logo moblie -->		
+			<a href="index.html" class="logo-mobile">
+				<img src="images/icons/logo.png" alt="IMG-LOGO">
+			</a>
+			
+
+			<!-- Button show menu -->
+			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</div>
+				
+		</div>
+
+
+		<!-- Menu Mobile -->
+		<div class="menu-mobile">
+			<ul class="main-menu-m bg-main">
+				<li class="bg-main">
+					<a href="index.html">Home</a>
+				</li>
+				
+				<li class="bg-main">
+					<a href="graph.html">Graph</a>
+				</li>
+
+				<li class="bg-main">
+					<a href="sample-small.html">Samples</a>
+					<ul class="sub-menu-m">
+						<li><a href="sample-small.html">Small Sample</a></li>
+						<li><a href="sample-medium.html">Medium Sample</a></li>
+						<li><a href="sample-large.html">Large Sample</a></li>
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
+				</li>
+
+				<li class="bg-main">
+					<a href="reading.html">Reading</a>
+				</li>
+
+				<li class="bg-main">
+					<a href="about-team.html">About Us</a>
+				</li>
+				<!--
+				<li class="bg-main">
+					<a href="contact.html">Contact</a>
+				</li>-->
+			</ul>
+		</div>
+	</header>
+
+	<!-- Slide -->
+	<section class="slider">
+		<div class="rev_slider_wrapper fullwidthbanner-container rs1-revo">
+			<div id="rev_slider_1" class="rev_slider fullwidthabanner" data-version="5.4.5" style="display:none">
+				<ul>
+					<!-- Slide 1 -->
+					<li data-transition="fade">
+						<img src="images/slide-01.jpg" alt="IMG-SLIDE" class="rev-slidebg">
+
+						<h2 class="tp-caption tp-resizeme txt1 txt-center p-l-15 p-r-15" 
+						data-frames='[{"delay":500,"speed":1500,"frame":"0","from":"x:left;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+					    data-x="center" 
+					    data-y="center" 
+					    data-width="['1200','992','768','480']"
+					    data-hoffset="['0','0','0','0']" 
+					    data-voffset="['-85','-85','-85','-160']"  
+					    data-fontsize="['50', '50', '50', '50']"
+					    data-lineheight="['60', '60', '60', '60']"
+					    data-height="['auto']"
+					    >Chordal Graph Generation</h2>
+
+					    <p class="tp-caption tp-resizeme txt2 txt-center p-l-15 p-r-15" 
+						data-frames='[{"delay":1500,"speed":1500,"frame":"0","from":"x:right;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+					    data-x="center" 
+					    data-y="center" 
+					    data-width="['780','780','780','480']"
+					    data-hoffset="['0','0','0','0']" 
+					    data-voffset="['-10','-10','-10','-50']"  
+					    data-fontsize="['18', '18', '18', '16']"
+					    data-lineheight="['30', '30', '30', '30']"
+					    data-height="['auto']"
+					    >Observe the process of generating a Chordal Graph, as well as adding/removing links from graphs to see it's behaviour
+					    </p>
+
+					    <div class="tp-caption tp-resizeme wrap-btn-slide"
+					    data-frames='[{"delay":3000,"speed":1500,"frame":"0","from":"y:bottom;rX:-20deg;rY:-20deg;rZ:0deg;","to":"o:1;","ease":"Power3.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+					    data-x="center" 
+					    data-y="center"
+					    data-hoffset="['0','0','0','0']" 
+					    data-voffset="['75','75','75','90']"
+					    data-height="['auto']">
+					    	<div class="w-184 p-l-10 p-r-10 p-t-5 p-b-5">
+					    		<!-- Button -->
+					    		<a href="graph.html" class="btn-drive size1 m-txt1 bg-main bo-rad-4 trans-03">
+					    			Start Graphing
+					    			<i class="fa fa-chevron-right m-l-9 fs-14" aria-hidden="true"></i>
+					    		</a>
+					    	</div>
+					    </div>
+						
+					</li>
+				</ul>				
+			</div>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section class="bg1 p-t-40 p-b-70 features">
+		<div class="container">
+			<div class="row">
+				<div class="flex-str col-sm-6 col-lg-3 p-t-65">
+					<!-- Block 2 -->
+					<div class="block-2">
+						<div class="wrap-b2 p-t-60 p-b-30 p-l-19 p-r-19">
+							<div class="wrap-symbol-b2">	
+								<div class="symbol-1 rotate-symbol-1">
+									<i class="fa fa-line-chart " aria-hidden="true"></i>
+								</div>
+							</div>
+
+							<h4 class="m-txt13 txt-center p-b-8">
+								Graphing Tool
+							</h4>
+
+							<p class="s-txt2 txt-center">
+								Provide a number of nodes and edges to generate a chordal graph
+							</p>
+						</div>
+					</div>
+				</div>
+				
+				<div class="flex-str col-sm-6 col-lg-3 p-t-65">
+					<!-- Block 2 -->
+					<div class="block-2">
+						<div class="wrap-b2 p-t-60 p-b-30 p-l-19 p-r-19">	
+							<div class="wrap-symbol-b2">	
+								<div class="symbol-1 rotate-symbol-1">
+									<i class="fa fa-eye" aria-hidden="true"></i>
+								</div>	
+							</div>
+
+							<h4 class="m-txt13 txt-center p-b-8">
+								Visual Tool
+							</h4>
+
+							<p class="s-txt2 txt-center">
+								Observe the addition and removal of edges from the graph
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex-str col-sm-6 col-lg-3 p-t-65">
+					<!-- Block 2 -->
+					<div class="block-2">
+						<div class="wrap-b2 p-t-60 p-b-30 p-l-19 p-r-19">	
+							<div class="wrap-symbol-b2">	
+								<div class="symbol-1 rotate-symbol-1">
+									<i class="fa fa-download" aria-hidden="true"></i>
+								</div>	
+							</div>
+
+							<h4 class="m-txt13 txt-center p-b-8">
+								Downloads
+							</h4>
+
+							<p class="s-txt2 txt-center">
+								Download images of the graphs you've generated for future use and practice
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="flex-str col-sm-6 col-lg-3 p-t-65">
+					<!-- Block 2 -->
+					<div class="block-2">
+						<div class="wrap-b2 p-t-60 p-b-30 p-l-19 p-r-19">	
+							<div class="wrap-symbol-b2">	
+								<div class="symbol-1 rotate-symbol-1">
+									<i class="fa fa-newspaper-o" aria-hidden="true"></i>
+								</div>	
+							</div>
+
+							<h4 class="m-txt13 txt-center p-b-8">
+								Additional Reading
+							</h4>
+
+							<p class="s-txt2 txt-center">
+								Further your knowledge with provided educational materials from published sources
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- More Reading -->
+	<section class="bgwhite p-t-75 p-b-90">
+		<div class="container-slick-4">
+			<div class="container p-b-10">
+				<div class="p-b-24">
+					<h3 class="m-txt4 p-b-8 p-r-90 respon1">
+						More Reading
+					</h3>
+
+					<div class="bg-main size2 bo-rad-3"></div>
+				</div>
+			</div>
+
+			<div class="wrap-slick-4">
+				<div class="slick-4 js-slick-4">
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-01.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="https://www.irif.fr/~habib/Documents/WGChordaux.pdf"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Chordal Graphs and their clique graphs
+								</h4></a>
+								
+								<p class="s-txt2 p-t-11 p-b-22">
+									Insert Paper Summary Here
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="https://www.irif.fr/~habib/Documents/WGChordaux.pdf" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="https://digital.library.unt.edu/ark:/67531/metadc1184154/m2/1/high_res_d/6560471.pdf"><img src="images/news-02.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="https://digital.library.unt.edu/ark:/67531/metadc1184154/m2/1/high_res_d/6560471.pdf"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									An Introduction to Chordal Graphs and Clique Trees
+								</h4></a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Insert Paper Summary Here
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="https://digital.library.unt.edu/ark:/67531/metadc1184154/m2/1/high_res_d/6560471.pdf" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="http://aclweb.org/anthology/I11-1061"><img src="images/news-03.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="http://aclweb.org/anthology/I11-1061"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									The Application of Chordal Graphs to Inferring Phylogenetic Trees of Languages
+								</h4></a>
+								
+								<p class="s-txt2 p-t-11 p-b-22">
+									Insert Paper Summary Here
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="http://aclweb.org/anthology/I11-1061" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-04.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="blog-single.html"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Trainee licence option with 20 hours training
+								</h4></a>
+								
+								<span class="s-txt7">July 18, 2017 | </span>
+								<a href="#" class="dis-inline s-txt8 hov-color-main">Pro Tips</a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="blog-single.html" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-05.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="blog-single.html"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Dedicated support team, local trainer
+								</h4></a>
+								
+								<span class="s-txt7">July 18, 2017 | </span>
+								<a href="#" class="dis-inline s-txt8 hov-color-main">Pro Tips</a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="blog-single.html" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-06.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="blog-single.html"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Training Fee's invested back
+								</h4></a>
+								
+								<span class="s-txt7">July 18, 2017 | </span>
+								<a href="#" class="dis-inline s-txt8 hov-color-main">Pro Tips</a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="blog-single.html" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-07.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="blog-single.html"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Fast track route available
+								</h4></a>
+								
+								<span class="s-txt7">July 18, 2017 | </span>
+								<a href="#" class="dis-inline s-txt8 hov-color-main">Pro Tips</a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="blog-single.html" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-08.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="blog-single.html"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Established online e-learning hub
+								</h4></a>
+								
+								<span class="s-txt7">July 18, 2017 | </span>
+								<a href="#" class="dis-inline s-txt8 hov-color-main">Pro Tips</a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="blog-single.html" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="item-slick-4 m-l-15 m-r-15">
+						<!-- Block 4 -->
+						<div class="block-4">
+							<div class="wrap-pic-b4 wrap-pic-w hov5">
+								<a href="blog-single.html"><img src="images/news-09.jpg" alt="IMG-NEWS"></a>
+							</div>
+
+							<div class="wrap-text-b4 p-t-23">
+								<a href="blog-single.html"><h4 class="m-txt8 hov-color-main trans-04 m-b-10">
+									Dedicated support team, local trainer
+								</h4></a>
+								
+								<span class="s-txt7">July 18, 2017 | </span>
+								<a href="#" class="dis-inline s-txt8 hov-color-main">Pro Tips</a>
+
+								<p class="s-txt2 p-t-11 p-b-22">
+									Phasellus lorem enim, luctus ut velit eget, convallis egestas eros. Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								</p>
+
+								<div class="wrap-btn-b4 flex-w">
+									<!-- Button -->
+									<a href="blog-single.html" class="btn-drive m-txt10 size8 bo3 bg1 hov-color-white bo-rad-4">
+										Continue reading
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	
+	
+	<footer class="bg4 p-t-25">
+		<div class="container p-b-60">
+			<div class="row">
+				<div class=" col-sm-12 col-lg-3 p-t-30">
+					<div class="w-full wrap-pic-max-w">
+						<a href="index.html"><img src="images/icons/logo-02.png" alt="LOGO"></a>
+					</div>
+
+					<p class="s-txt9 p-t-30">
+						This website was put together to provide a visual interface for students to learn about Chordal graphs.
+					</p>
+				</div>
+				
+				<div class=" col-sm-6 col-lg-3 p-t-30">
+					<h4 class="m-txt12 p-t-14">
+						Mitchell Fujs - Tajinder Dhillon
+					</h4>
+
+					<div class="wrap-link-footer p-t-28">
+						<ul class="col-left">
+							<li><a href="#">Home</a></li>
+							<li><a href="#">Graph</a></li>
+							<li><a href="#">Reading</a></li>
+							<li><a href="#">About</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class=" col-sm-6 col-lg-3 p-t-30">
+					<h4 class="m-txt12 p-t-14">
+						Contact us
+					</h4>
+
+					<ul class="contact-footer p-t-28">
+						<li>
+							<i class="fa fa-envelope-o" aria-hidden="true"></i>
+							fujs11@uwindsor.ca
+						</li>
+						<li>
+							<i class="fa fa-envelope-o" aria-hidden="true"></i>
+							dhillont@uwindsor.ca
+						</li>
+					</ul>
+				</div>				
+			</div>
+		</div>
+	</footer>
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top hov-bg-main" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
+	</div>
+	
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/wow/wow.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/dist/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/slick/slick.min.js"></script>
+	<script src="js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->	
+	<script src="vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
+	<script src="vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.video.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+	<script src="vendor/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+	<script src="js/slide-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/lightbox2/js/lightbox.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/parallax100/parallax100.js"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/contact.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
