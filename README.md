@@ -10,6 +10,7 @@ Once Nodejs and npm is installed and the repository download to a directory. In 
 Current Dependencies:
 * express
 * python-shell
+* Python 2.7 installed in the default directory (Windows C:/Python27/python.exe, other /usr/bin/python)
 
 
 ## Run
@@ -20,7 +21,6 @@ Simply type `npm start` in the directory to the start the server. Navigate to ht
 * Information about chordal graph
 
 RESTful API
-* Request different graphs from server
 * Send current graph to check if it correct
 * [Tutorial](https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb)
 
