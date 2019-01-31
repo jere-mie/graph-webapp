@@ -45,6 +45,8 @@ let deletionStart = false; // used for algorithm
 // called button on page
 function btnOnClick(btnId) {
     if(btnId == "btnCompleteGraph") {
+        document.getElementById("Alert").removeAttribute("hidden")  // temp
+
         // get input
         numNodes = parseInt(document.getElementById('numNodes').value)
         numEdges = parseInt(document.getElementById('numEdges').value)
@@ -80,6 +82,8 @@ function btnOnClick(btnId) {
         console.log(btnId)
 
     if(btnId == "btnCliqueTree") {
+        document.getElementById("Alert").setAttribute("hidden", "")  // temp
+        
         // get input
         numNodes = parseInt(document.getElementById('numNodes').value)
         numEdges = parseInt(document.getElementById('numEdges').value)

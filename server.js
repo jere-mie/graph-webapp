@@ -17,6 +17,10 @@ app.get('/api/v1/graph', (req, res) => {
     let btnId = req.query.btnId
     let deletionStart = req.query.deletionStart
 
+    if(isNaN(numNodes) || isNaN(numEdges)) {
+        return res.status(200).send()
+    }
+
     let output = ''
     let py_options = {}
     
