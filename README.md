@@ -14,7 +14,9 @@ Current Dependencies:
 
 
 ## Run
-Simply type `npm start` in the directory to the start the server. Navigate to http://localhost:3000 to view the page
+Make sure you have the dependecies installed, by running `npm install`.
+
+Then simply type `npm start` in the directory to the start the server. Navigate to http://localhost:3000 to view the page
 
 ## TODO
 
