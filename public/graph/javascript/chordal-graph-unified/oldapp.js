@@ -7,7 +7,11 @@ const svg = d3.select('#svgViewPort')
   .append('svg')
   .attr('oncontextmenu', 'return false;')
   .attr('width', width)
-  .attr('height', height);
+  .attr('height', height)
+  .call(d3.zoom().on("zoom", function () {
+    svg.attr("transform", d3.event.transform)
+  }))
+  .append("g");
 
 // set file to load on start up
 fileName = "N4E4/chordalGraph.json"

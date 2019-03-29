@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>k-Chromatic Chordal Graph Editor</title>
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/chordal-graph-k-chromatic/sheet.css">
+    <!-- app css -->
+    <link rel="stylesheet" href="stylesheets/chordal-graph-k-chromatic/app.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-3 mr-0 text-light">k-Chormatic Chordal Graph Viewer</a>
+    </nav>
+    <div class="contianer-fluid">
+      <div class="row">
+        <nav class="col-md-3 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky container">
+            <form class="">
+              <label >Step 1. Create Graph</label>
+              <div class="form-row">
+                <p>First create a graph with only one connected component and more than one mutually independent vertex</p>
+                <ul>
+                  <li>To add a node, right click in the viewport</li>
+                  <li>To remove a node, right click on the node you would like to delete</li>
+                  <li>To add an edge, click and drag from one node to another</li>
+                  <li>To remove an edge, right click on the edge you would like to delete</li>
+                </ul>
+                <strong><span id="errorSpan" style="color:darkred">Graph Can not be empty</span></strong>
+              </div>
+              <hr/>
+              <label>Step 2. Add edges from the mutually independent vertices to the graph.</label>
+              <div class="form-row">
+                <button type="button" class="btn btn-primary my-2" id="btnStep2" onclick="btnOnClick(this.id)" disabled>Add Edges</button>
+              </div>
+              <hr />
+              <label>Step 3. Add edges to the connected componet to create a clique.</label>
+              <div class="form-row">
+                <button type="button" class="btn btn-primary my-2" id="btnStep3" onclick="btnOnClick(this.id)" disabled>Add Edges</button>
+              </div>
+              <div class="form-row">
+                <button type="button" class="btn btn-primary mt-4" id="reload" onclick="window.location.href=window.location.href">Reload</button>
+              </div>
+            </form>
+            <div class="form-row">
+              <button type="button" class="btn btn-primary mt-2" id="reload" onclick="simulation.stop()">Stop Simulation</button>
+            </div>
+            <div class="alert alert-warning alert-dismissible my-4" id="Alert" hidden>
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Note!</strong> Python does not generate a complete graph, please continue to next step
+            </div>
+          </div> <!-- /nav sidbar -->
+        </nav>
+      </div> <!-- /row -->
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-9">
+        <div id="svgViewPort"></div>
+      </main>
+    </div> <!-- /container fluid -->
+  </body>
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <!-- D3 -->
+  <script src="http://d3js.org/d3.v5.min.js"></script>
+  <!-- app scripts -->
+  <script src="javascript/chordal-graph-k-chromatic/script.js"></script>
+  <script src="javascript/chordal-graph-k-chromatic/app.js"></script>
+</html>

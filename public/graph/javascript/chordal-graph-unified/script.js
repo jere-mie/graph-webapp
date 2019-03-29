@@ -13,11 +13,12 @@ function importData(fileName) {
             // check if nodes have changed
             const cnodesIDs = nodes.map(n => n.id).toString()
             const newNodesIDs = d.nodes.map(n => n.id).toString()
-            if(cnodesIDs != newNodesIDs)
+            if(cnodesIDs != newNodesIDs) {
                 nodes = d.nodes
+            }
             lastNodeId = d.lastNodeId
             links = d.links
-            restart()
+            restart();
         });
 }
 
@@ -29,13 +30,9 @@ function getGraph(numNodes, numEdges, btnId, deletionStart) {
             // console.log(links)
             // console.log(lastNodeId)
 
-            // check if nodes have changed
-            const cnodesIDs = nodes.map(n => n.id).toString()
-            const newNodesIDs = d.nodes.map(n => n.id).toString()
-            if(cnodesIDs != newNodesIDs)
-                nodes = d.nodes
-            lastNodeId = d.lastNodeId
-            links = d.links
+            nodes = d.nodes;
+            lastNodeId = d.lastNodeId;
+            links = d.links;
             restart()
         });
 }
@@ -45,15 +42,18 @@ let deletionStart = false; // used for algorithm
 // called button on page
 function btnOnClick(btnId) {
     if(btnId == "btnCompleteGraph") {
-        document.getElementById("Alert").removeAttribute("hidden")  // temp
-
         // get input
         numNodes = parseInt(document.getElementById('numNodes').value)
         numEdges = parseInt(document.getElementById('numEdges').value)
 
         deletionStart = true
-        getGraph(numNodes, numEdges, btnId, deletionStart)
 
+        if(numNodes > 50) {
+            document.getElementById("Alert").removeAttribute("hidden")
+            setTimeout(() => {document.getElementById("Alert").setAttribute("hidden","")}, 10000)
+        } else {
+            getGraph(numNodes, numEdges, btnId, deletionStart)
+        }
 
         // disable step 1
         document.getElementById("btnCompleteGraph").setAttribute("disabled", "");
@@ -63,6 +63,8 @@ function btnOnClick(btnId) {
         console.log(btnId)
     }
     if(btnId == "btnTree") {
+        document.getElementById("Alert").setAttribute("hidden","")
+
         // get input
         numNodes = parseInt(document.getElementById('numNodes').value)
         numEdges = parseInt(document.getElementById('numEdges').value)
@@ -82,8 +84,6 @@ function btnOnClick(btnId) {
         console.log(btnId)
 
     if(btnId == "btnCliqueTree") {
-        document.getElementById("Alert").setAttribute("hidden", "")  // temp
-        
         // get input
         numNodes = parseInt(document.getElementById('numNodes').value)
         numEdges = parseInt(document.getElementById('numEdges').value)

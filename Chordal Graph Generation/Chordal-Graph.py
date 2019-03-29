@@ -58,40 +58,50 @@ if numOfConnComps > 1:
 		v = random.choice(list(connComps[(j+1)%numOfConnComps]))
 		addAnEdge(randomGraph, u, v)
 		j = j + 1
+
+# create graph
+graph = {v:[] for v in range(0,numVertices)}
+# add randomGraph to existing graph
+for v in randomGraph:
+		graph[v] = randomGraph[v]
+
+
 # Print random graph
-print("Random graph: " + str(randomGraph))
+print("Initial graph: " + str(graph))
 
 # STEP 2
-# Convert random graph into a clique(complete graph)
-# copy the randomGraph
-cliqueGraph = copy.deepcopy(randomGraph)
-for v in cliqueGraph:
-	cliqueGraph[v] = [x for x in randomVertices if x != v]
-
-# Print clique graph
-print("Clique graph: " + str(cliqueGraph))
-
-# STEP 3
 # connect each mutually independent vertex to the clique graph
 # dictionary of miVertices		
 
 # edges contains pairs that represent edge between the clique graph
 # to the mutually independent vertex
-edges = []
+miEdges = []
 
 # create edges from each mutually independent vertices to each clique vertices
 # this done by taking the Cartesian product of miVertices and randomVertices
-edges.extend(itertools.product(miVertices, randomVertices))
+miEdges.extend(itertools.product(miVertices, randomVertices))
 
-# copy the clique graph to add edge to mutually indepdent vertices
-graph = copy.deepcopy(cliqueGraph)
-# add mutually indepdent vertices
-for v in miVertices:
-	graph[v] = []
 # add edge from clique graph to mutually indepdent vertices
-for v1,v2 in edges:
+for v1,v2 in miEdges:
     graph[v1].append(v2)
     graph[v2].append(v1)
 
 # Print final graph
-print("Chordal graph: " + str(graph))
+print("Mutually independent vertices connected to graph: " + str(graph))
+
+# STEP 3
+# Convert random graph into a clique(complete graph)
+for v,w in itertools.product(randomVertices, randomVertices):
+	if v != w:
+		if not w in graph[v]:
+			graph[v].append(w)
+			graph[w].append(v)
+
+# Print clique graph
+print("Clique graph: " + str(graph))
+
+# For recognition, if the generated graph is a chordal graph or not.
+G = nx.Graph(graph)
+if nx.is_chordal(G):
+    print("The generated graph is a Chordal graph.")
+###

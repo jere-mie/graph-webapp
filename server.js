@@ -11,6 +11,37 @@ const port = 3000
 
 app.listen(port, () => console.log(`app running at http://localhost:${port}`))
 
+function runPythonScript(scriptPath, scriptName, args, callback) {
+    let output = ''
+    let py_options = {}
+    
+    if(process.platform === "win32") {
+        py_options = {
+            mode: 'text',
+            pythonPath: 'C:/Python27/python.exe',
+            pythonOptions: [], // get print results in real-time
+            scriptPath: scriptPath,
+            args: args
+        };
+    } else {
+        py_options = {
+            mode: 'text',
+            pythonPath: '/usr/bin/python',
+            pythonOptions: [], // get print results in real-time
+            scriptPath: scriptPath,
+            args: args
+        };
+    }
+
+    ps.PythonShell.run(scriptName, py_options, (err, results) => {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        output = results[results.length-1]
+        // console.log('results: %j', results[results.length-1])
+        callback(JSON.parse(output))
+    });
+}
+
 app.get('/api/v1/graph', (req, res) => {
     let numNodes = req.query.numNodes
     let numEdges = req.query.numEdges
@@ -21,36 +52,30 @@ app.get('/api/v1/graph', (req, res) => {
         return res.status(200).send()
     }
 
-    let output = ''
-    let py_options = {}
-    
-    if(process.platform === "win32") {
-        py_options = {
-            mode: 'text',
-            pythonPath: 'C:/Python27/python.exe',
-            pythonOptions: [], // get print results in real-time
-            scriptPath: 'Py_Program/',
-            args: [numNodes, numEdges, btnId, deletionStart]
-        };
-    } else {
-        py_options = {
-            mode: 'text',
-            pythonPath: '/usr/bin/python',
-            pythonOptions: [], // get print results in real-time
-            scriptPath: 'Py_Program/',
-            args: [numNodes, numEdges, btnId, deletionStart]
-        };
+    // python program does not create complete graph
+    if (btnId == 'btnCompleteGraph') {
+        graph = {}
+        graph["nodes"] = []
+        for (i=0; i < numNodes; i++) {
+            graph["nodes"].push({id:i})
+        }
+        graph["lastNodeId"] = numNodes - 1
+        graph["links"] = []
+        for (i=0; i < numNodes; i++) {
+            for (j=i; j < numNodes; j++) {
+                if (i != j) {
+                    graph["links"].push({"source":i, "target":j})
+                }
+            }
+        }
+        
+        return res.status(200).send(graph)
     }
 
-    ps.PythonShell.run('interface.py', py_options, (err, results) => {
-        if (err) throw err;
-        // results is an array consisting of messages collected during execution
-        output = results[results.length-1]
-        // console.log('results: %j', results[results.length-1])
-        test1(JSON.parse(output))
-    });
+    console.log("Python Started with numNodes:" + numNodes + " numeEdges:" + numEdges + " btnId:" + btnId)
+    runPythonScript('Py_Program/','interface.py', [numNodes, numEdges, btnId, deletionStart], callback)
 
-    function test1(output) {
+    function callback(output) {
         keys = Object.keys(output)
         graph = {}
         nodes = keys.map(x => ({id:x}))
@@ -79,7 +104,8 @@ app.get('/api/v1/graph', (req, res) => {
         }
 
         graph["links"]= linkpairs.map(JSON.parse)
-
+        console.log("Python done")
+        
         return res.status(200).send(graph)
     }
 
