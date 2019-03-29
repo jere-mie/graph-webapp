@@ -59,6 +59,8 @@ function restart() {
         .style('stroke', d => d3.rgb(colors(d.id)).darker().toString())
         .merge(node);
     
+    node.append('title').text((d) => d.id)
+    
     link = link.data(links);
     link.exit().remove();
     link = link.enter()

@@ -60,8 +60,7 @@ function restart() {
     node = node.data(nodes, d => d.id);
     node.exit().remove();
     const g = node.enter().append('g')
-    node = g
-        .append('circle')
+    node = g.append('circle')
         .attr('r', radius)
         .style('fill', d => colors(d.id))
         .style('stroke', d => d3.rgb(colors(d.id)).darker().toString())
@@ -69,6 +68,8 @@ function restart() {
         .on('mousedown', beginDragLine)
         .on('mouseup', endDragLine)
         .merge(node);
+    
+    node.append('title').text((d) => d.id)
     
     link = link.data(links);
     link.exit().remove();
