@@ -119,7 +119,8 @@ function checkGraph() {
         adjList[l.source.id].push(l.target);
         adjList[l.target.id].push(l.source);
     });
-    
+
+    linkNodes.clear();
     links.forEach((l) => {
         linkNodes.add(l.source)
         linkNodes.add(l.target)
