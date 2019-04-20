@@ -3,6 +3,7 @@ const width = document.getElementById("svgViewPort").offsetWidth;
 const height = document.getElementById("svgViewPort").offsetHeight;
 const colors = d3.scaleOrdinal(d3.schemeCategory10);
 
+// select DOM object to display graph
 const svg = d3.select('#svgViewPort')
     .append('svg')
     .attr('width', width)
@@ -13,8 +14,10 @@ const svg = d3.select('#svgViewPort')
 fileName = "N4E4/chordalGraph.json"
 importData(fileName);
 
+// radius of nodes
 const radius = 10;
 
+// simulation of the graph
 const simulation = d3.forceSimulation(nodes)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
@@ -27,12 +30,12 @@ const simulation = d3.forceSimulation(nodes)
             .attr('x2', d => d.target.x)
             .attr('y2', d => d.target.y);
         node
-            // .attr('cx', d => d.x)
+            // keep nodes within the viewport since zooming/panning of viewport
             .attr('cx', d => {return d.x = Math.max(radius, Math.min(width - radius, d.x));})
-            // .attr('cy', d => d.y);
             .attr('cy', d => {return d.y = Math.max(radius, Math.min(height - radius, d.y)); });
     });
 
+// allowing dragging of nodes
 const drag = d3.drag()
     .on('start', (d) => {
         if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -56,6 +59,7 @@ let dragLine = g.append('path')
 let link = g.append('g').selectAll('line');
 let node = g.append('g'). selectAll('circle');
 
+// function to restart the graph
 function restart() {
     node = node.data(nodes, d => d.id);
     node.exit().remove();
@@ -69,6 +73,7 @@ function restart() {
         .on('mouseup', endDragLine)
         .merge(node);
     
+    // title(mouse hover over)
     node.append('title').text((d) => d.id)
     
     link = link.data(links);
@@ -106,12 +111,13 @@ function checkGraph() {
         return;
     }
 
-    // check if one conncted component
+    // check if only one conncted component
     componentCount = 1;
     nodes.forEach((v) => {
         v.visted = false;
     });
 
+    // adjacently list
     let adjList = {};
     nodes.forEach((v) => {
         adjList[v.id] = []
@@ -127,6 +133,7 @@ function checkGraph() {
         linkNodes.add(l.target)
     });
 
+    // queue of nodes to vist
     let q = []
     q.push(nodes[0]);
 
@@ -142,6 +149,8 @@ function checkGraph() {
         }
 
         v1.visted = true;
+        // if nothing in queue then check if we
+        // visted all nodes that are linked
         if(q.length == 0) {
             for(let i=0; i<nodes.length; i++) {
                 if(!nodes[i].visted && linkNodes.has(nodes[i])) {
@@ -168,11 +177,6 @@ function checkGraph() {
     d3.select("#errorSpan").text(" ")
     document.getElementById("btnStep2").removeAttribute("disabled");
 }
-
-// const zoom = d3.zoom()
-//     .on('zoom', () => g.attr("transform", d3.event.transform));
-
-// zoom(svg);
 
 let mousedownNode = null, mouseupNode = null;
 
@@ -239,6 +243,7 @@ function hideDragLine() {
 }
 
 function endDragLine(d) {
+    // if mouse does not release on node or self reference then skip
     if(!mousedownNode || mousedownNode===d) {
         resetMouseVar();
         return;
@@ -253,6 +258,7 @@ function endDragLine(d) {
         }
     }
 
+    // add the link
     let newLink = {source: mousedownNode, target: d};
     links.push(newLink);
 
