@@ -5,8 +5,8 @@ const app = express()
 app.use(express.static('public/graph')) // graph page files
 app.use(express.static('public/main'))  // main page files
 
-// get port number from enviromne
-// process.env.PORT
+// get port number from enviroment
+// const port = process.env.PORT
 const port = 3000
 
 app.listen(port, () => console.log(`app running at http://localhost:${port}`))
@@ -45,68 +45,83 @@ function runPythonScript(scriptPath, scriptName, args, callback) {
 app.get('/api/v1/graph', (req, res) => {
     let numNodes = req.query.numNodes
     let numEdges = req.query.numEdges
-    let btnId = req.query.btnId
     let deletionStart = req.query.deletionStart
 
-    if(isNaN(numNodes) || isNaN(numEdges)) {
-        return res.status(200).send()
+    errors = []
+    // return res.status(400).send({"Error": "Invalid "})
+    // check input
+    if(isNaN(numNodes)) { errors.push("numNodes is NaN") }
+    if(isNaN(numEdges)) { errors.push("numEdges is NaN") }
+    if(numEdges < 1) { errors.push("numedges < 1") }
+    if(numNodes < 1) { errors.push("numNodes < 1") }
+
+    // return error
+    if(errors.length != 0) {
+        return res.status(200).send({"Error": errors})
     }
 
     // python program does not create complete graph
-    if (btnId == 'btnCompleteGraph') {
-        graph = {}
-        graph["nodes"] = []
+    if (deletionStart == 'true' && parseInt(numNodes) <= 50) {
+        completeGraph = {}
+        completeGraph["nodes"] = []
         for (i=0; i < numNodes; i++) {
-            graph["nodes"].push({id:i})
+            completeGraph["nodes"].push({id:i})
         }
-        graph["lastNodeId"] = numNodes - 1
-        graph["links"] = []
+        completeGraph["lastNodeId"] = numNodes - 1
+        completeGraph["links"] = []
         for (i=0; i < numNodes; i++) {
             for (j=i; j < numNodes; j++) {
                 if (i != j) {
-                    graph["links"].push({"source":i, "target":j})
+                    completeGraph["links"].push({"source":i, "target":j})
                 }
             }
         }
-        
-        return res.status(200).send(graph)
     }
 
-    console.log("Python Started with numNodes:" + numNodes + " numeEdges:" + numEdges + " btnId:" + btnId)
-    runPythonScript('Py_Program/','interface.py', [numNodes, numEdges, btnId, deletionStart], callback)
+    console.log("Python Started with numNodes:" + numNodes + " numeEdges:" + numEdges + " deletionStart:" + deletionStart)
+    runPythonScript('Py_Program/','chordal-graph-Unified-Interface.py', [numNodes, numEdges, deletionStart], callback)
 
     function callback(output) {
-        keys = Object.keys(output)
-        graph = {}
-        nodes = keys.map(x => ({id:x}))
-        graph["nodes"] = nodes
-        lastNodeId = keys.length
-        graph["lastNodeId"] = lastNodeId
+        function adjList2linkPairs(adjList) {
+            let keys = Object.keys(adjList)
+            let graph = {}
+            let nodes = keys.map(x => ({id:x}))
+            graph["nodes"] = nodes
+            let lastNodeId = keys.length - 1
+            graph["lastNodeId"] = lastNodeId
 
-        linkpairs = []
+            let linkpairs = []
 
-        function createLink(source, target) {
-            return JSON.stringify({"source": source, "target": target})
-        }
-        
-        for(i=0; i < keys.length; i++) {
-            key = keys[i]
-            // for(node in output[key]) {
-            for(j=0; j < output[key].length; j++) {
-                node0 = parseInt(key)
-                node1 = output[key][j]
-                if(linkpairs.includes(createLink(node1, node0))) {
-                    continue
-                } else {
-                    linkpairs.push(createLink(node0,node1))
+            function createLink(source, target) {
+                return JSON.stringify({"source": source, "target": target})
+            }
+            
+            // loop throught adjacency list 
+            for(i=0; i < keys.length; i++) {
+                key = keys[i]
+                // loop through list of connected nodes
+                for(j=0; j < adjList[key].length; j++) {
+                    node0 = parseInt(key)
+                    node1 = adjList[key][j]
+                    // check if link already exists
+                    if(linkpairs.includes(createLink(node1, node0))) {
+                        continue
+                    } else {
+                        linkpairs.push(createLink(node0,node1))
+                    }
                 }
             }
+
+            graph["links"] = linkpairs.map(JSON.parse)
+            return graph
         }
 
-        graph["links"]= linkpairs.map(JSON.parse)
         console.log("Python done")
-        
-        return res.status(200).send(graph)
+        graphs = output.map(adjList2linkPairs)
+        if(deletionStart  == 'true' && parseInt(numNodes) <= 50) {
+            graphs[0] = completeGraph
+        }
+        return res.status(200).send(graphs)
     }
 
 })

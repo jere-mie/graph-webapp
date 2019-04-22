@@ -31,6 +31,12 @@ function getGraph(numNodes, numEdges, btnId, deletionStart) {
             // console.log(links)
             // console.log(lastNodeId)
 
+            // check for error
+            if("Error" in d) {
+                console.log(d["Error"])
+                return
+            }
+
             // update graph
             nodes = d.nodes;
             lastNodeId = d.lastNodeId;
@@ -64,83 +70,31 @@ function btnOnClick(btnId) {
     }
     if(btnId == "btnStep3") {
         let linkNodesList = Array.from(linkNodes);
+        
         for(let i=0; i < linkNodesList.length; i++) {
             for(let j=0; j < linkNodesList.length; j++) {
+                if(i == j) {continue}
                 let newLink = {source: linkNodesList[i], target: linkNodesList[j]}
-                let newLink1 = {source: linkNodesList[j], target: linkNodesList[i]}
-                if(links.indexOf(newLink) != -1 || links.indexOf(newLink1) != -1) {
-                    continue;
+                add = true
+
+                for(let k=0; k < links.length; k++) {
+                    if(links[k].source.id == j && links[k].target.id == i) {
+                        add = false
+                        break;
+                    }
+                    if(links[k].source.id == i && links[k].target.id == j) {
+                        add = false
+                        break;
+                    }
                 }
-                links.push(newLink);
+                
+                if(add) {
+                    links.push(newLink);
+                }
             }
         }
 
         restart();
         document.getElementById("btnStep3").setAttribute("disabled", "");
-
     }
-    // if(btnId == "btnCompleteGraph") {
-    //     // get input
-    //     numNodes = parseInt(document.getElementById('numNodes').value)
-    //     numEdges = parseInt(document.getElementById('numEdges').value)
-
-    //     deletionStart = true
-
-    //     if(numNodes > 50) {
-    //         document.getElementById("Alert").removeAttribute("hidden")
-    //         setTimeout(() => {document.getElementById("Alert").setAttribute("hidden","")}, 10000)
-    //     } else {
-    //         getGraph(numNodes, numEdges, btnId, deletionStart)
-    //     }
-
-    //     // disable step 1
-    //     document.getElementById("btnCompleteGraph").setAttribute("disabled", "");
-    //     document.getElementById("btnTree").setAttribute("disabled", "");
-    //     // enable step 2
-    //     document.getElementById("btnCliqueTree").removeAttribute("disabled");
-    //     console.log(btnId)
-    // }
-    // if(btnId == "btnTree") {
-    //     document.getElementById("Alert").setAttribute("hidden","")
-
-    //     // get input
-    //     numNodes = parseInt(document.getElementById('numNodes').value)
-    //     numEdges = parseInt(document.getElementById('numEdges').value)
-
-    //     deletionStart = false
-    //     getGraph(numNodes, numEdges, btnId, deletionStart)
-
-    //     // disable step 1
-    //     document.getElementById("btnCompleteGraph").setAttribute("disabled", "");
-    //     document.getElementById("btnTree").setAttribute("disabled", "");
-    //     // enable step 2
-    //     document.getElementById("btnCliqueTree").removeAttribute("disabled");
-
-    // }
-
-    // if(btnId == "btnWCliqueTree")
-    //     console.log(btnId)
-
-    // if(btnId == "btnCliqueTree") {
-    //     // get input
-    //     numNodes = parseInt(document.getElementById('numNodes').value)
-    //     numEdges = parseInt(document.getElementById('numEdges').value)
-
-    //     getGraph(numNodes, numEdges, btnId, deletionStart)
-
-    //     // disable step 2
-    //     document.getElementById("btnCliqueTree").setAttribute("disabled", "");
-    //     // enable step 3
-    //     document.getElementById("btnChordalGraph").removeAttribute("disabled");
-    // }
-
-    // if(btnId == "btnChordalGraph") {
-    //     // importData("/N4E4/chordalGraph.json")
-    //     // get input
-    //     numNodes = parseInt(document.getElementById('numNodes').value)
-    //     numEdges = parseInt(document.getElementById('numEdges').value)
-
-    //     getGraph(numNodes, numEdges, btnId, deletionStart)
-    // }
 }
-

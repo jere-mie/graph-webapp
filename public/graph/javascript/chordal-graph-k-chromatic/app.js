@@ -56,7 +56,8 @@ let g = svg.append('g').attr('class', 'everything');
 let dragLine = g.append('path')
     .attr('class', 'link drageline hidden')
     .attr('d', 'M0,0L0,0');
-let link = g.append('g').selectAll('line');
+let link = g.append('g').selectAll('line')
+    // .transition().duration(1500).style('stroke', '#999');
 let node = g.append('g'). selectAll('circle');
 
 // function to restart the graph
@@ -81,10 +82,14 @@ function restart() {
     link = link.enter()
         .append('line')
         .attr('class', 'link')
-        .style('stroke', '#333')
+        .style('stroke', 'red')
         .style('stroke-width', '4px')
         .on('contextmenu', removeEdge)
         .merge(link);
+    
+    link.transition()
+        .duration(3000)
+        .style('stroke', '#333');
     
     simulation.nodes(nodes);
     simulation.force("link").links(links);
@@ -117,7 +122,7 @@ function checkGraph() {
         v.visted = false;
     });
 
-    // adjacently list
+    // adjacency list
     let adjList = {};
     nodes.forEach((v) => {
         adjList[v.id] = []
