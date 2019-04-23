@@ -82,6 +82,8 @@ app.get('/api/v1/unified-graph', (req, res) => {
     runPythonScript('Py_Program/','chordal-graph-Unified-Interface.py', [numNodes, numEdges, deletionStart], callback)
 
     function callback(output) {
+        // convert graph representation from adjacency list to
+        // nodes object and link object
         function adjList2linkPairs(adjList) {
             let keys = Object.keys(adjList)
             let graph = {}
