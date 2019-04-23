@@ -42,7 +42,7 @@ function runPythonScript(scriptPath, scriptName, args, callback) {
     });
 }
 
-app.get('/api/v1/graph', (req, res) => {
+app.get('/api/v1/unified-graph', (req, res) => {
     let numNodes = req.query.numNodes
     let numEdges = req.query.numEdges
     let deletionStart = req.query.deletionStart
