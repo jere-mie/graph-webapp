@@ -1,7 +1,3 @@
-let nodes = []
-let lastNodeId = 0
-let links = []
-
 function importData(fileName) {
     d3.json("data/".concat(fileName))
         .then(function(d) {

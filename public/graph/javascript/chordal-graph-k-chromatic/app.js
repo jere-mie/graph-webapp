@@ -1,3 +1,7 @@
+let nodes = []
+let lastNodeId = 0
+let links = []
+
 // set up SVG for D3
 const width = document.getElementById("svgViewPort").offsetWidth;
 const height = document.getElementById("svgViewPort").offsetHeight;
