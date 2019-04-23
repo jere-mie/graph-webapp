@@ -70,13 +70,9 @@ function restart() {
     link = link.enter()
         .append('line')
         .attr('class', 'link')
-        .style('stroke', 'red')
+        .style('stroke', '#333')
         .style('stroke-width', '4px')
         .merge(link);
-
-    link.transition()
-        .duration(3000)
-        .style('stroke', '#333');
     
     simulation.nodes(nodes);
     simulation.force("link").links(links);
