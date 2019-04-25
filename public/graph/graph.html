@@ -6,8 +6,6 @@
     <!-- Boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="stylesheets/sheet.css">
-    <!-- app css -->
-    <!-- <link rel="stylesheet" href="stylesheets/app.css"> -->
   </head>
 
   <body>
@@ -18,28 +16,28 @@
       <h3>Select one of the following</h3>
       </div>
     <div class="container">
-      <div class="card-deck mb-3 text-center">
+      <div class="card-deck mb-3 text-center"> <!-- Card Deck -->
         <!-- k-Chromatic Chordal Graph - Card -->
         <div class="card mb-4 shadow-sm">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">k-Chromatic Chordal Graph</h4>
           </div>
           <div class="card-body">
-            <button type="button" class="btn btn-lg btn-block btn-primary"  onclick="window.location.href = '/chordal-graph-k-chromatic/'">Start Graph Editor</button>
+            <a class="btn btn-lg btn-block btn-primary" href="/chordal-graph-k-chromatic">Start Graph Editor</a>
           </div>
         </div>
-        <!-- k-Chromatic Chordal Graph - /Card -->
+        <!-- /k-Chromatic Chordal Graph - Card -->
         <!-- Unified Chordal Graph - Card -->
         <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Unified Chordal Graph</h4>
-            </div>
-            <div class="card-body">
-              <button type="button" class="btn btn-lg btn-block btn-primary"  onclick="window.location.href = '/chordal-graph-unified/'">Start Graph Viewer</button>
-            </div>
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Unified Chordal Graph</h4>
           </div>
-          <!-- Unified Chordal Graph - /Card -->
-      </div>
+          <div class="card-body">
+            <a class="btn btn-lg btn-block btn-primary" href="/chordal-graph-unified">Start Graph Editor</a>
+          </div>
+        </div>
+        <!-- /Unified Chordal Graph - Card -->
+      </div> <!-- /Card Deck -->
     </div> <!-- /container fluid -->
   </body>
   <!-- Bootstrap -->
