@@ -18,31 +18,6 @@ function importData(fileName) {
         });
 }
 
-// get a graph from the server given some user defined parameters
-function getGraph(numNodes, numEdges, btnId, deletionStart) {
-    d3.json("/api/v1/graph?numNodes="+numNodes+"&numEdges="+numEdges+"&btnId="+btnId+"&deletionStart="+deletionStart)
-        .then(function(d) {
-            // console.log(nodes)
-            // console.log(d.nodes)
-            // console.log(links)
-            // console.log(lastNodeId)
-
-            // check for error
-            if("Error" in d) {
-                console.log(d["Error"])
-                return
-            }
-
-            // update graph
-            nodes = d.nodes;
-            lastNodeId = d.lastNodeId;
-            links = d.links;
-            restart()
-        });
-}
-
-let deletionStart = false; // used for python algorithm
-
 // called button on page
 function btnOnClick(btnId) {
     if(btnId == "btnStep2") {
