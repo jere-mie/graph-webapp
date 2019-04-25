@@ -1,5 +1,5 @@
 function importData(fileName) {
-    d3.json("data/".concat(fileName))
+    d3.json("../data/".concat(fileName))
         .then(function(d) {
             // console.log(nodes)
             // console.log(d.nodes)
