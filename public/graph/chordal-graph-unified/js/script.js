@@ -19,7 +19,7 @@ function importData(fileName) {
 }
 
 function getGraph(numNodes, numEdges, deletionStart, callback) {
-    d3.json("/api/v1/unified-graph?numNodes="+numNodes+"&numEdges="+numEdges+"&deletionStart="+deletionStart)
+    d3.json("/api/unified-graph?numNodes="+numNodes+"&numEdges="+numEdges+"&deletionStart="+deletionStart)
         .then(function(d) {
             // console.log(nodes)
             // console.log(d.nodes)
