@@ -14,10 +14,6 @@ const svg = d3.select('#svgViewPort')
     .attr('height', height)
     .on('contextmenu', addNode);
 
-// set file to load on start up
-fileName = "N4E4/chordalGraph.json"
-importData(fileName);
-
 // radius of nodes
 const radius = 10;
 
@@ -63,6 +59,23 @@ let dragLine = g.append('path')
 let link = g.append('g').selectAll('line')
     // .transition().duration(1500).style('stroke', '#999');
 let node = g.append('g'). selectAll('circle');
+
+// set file to load on start up
+fileName = "N4E4/chordalGraph.json"
+importData(fileName);
+
+//create zoom handler 
+var zoom_handler = d3.zoom()
+    .on("zoom", zoom_actions);
+
+//specify what to do when zoom event listener is triggered 
+function zoom_actions(){
+ g.attr("transform", d3.event.transform);
+}
+
+//add zoom behaviour to the svg element 
+//same as svg.call(zoom_handler); 
+zoom_handler(svg);
 
 // function to restart the graph
 function restart() {
