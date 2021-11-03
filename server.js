@@ -1,5 +1,6 @@
 const express = require('express')
 const ps = require('python-shell')
+//let {PythonShell} = require('numpy')
 const app = express()
 
 app.use(express.static('public/graph')) // graph page files
@@ -23,15 +24,18 @@ function runPythonScript(scriptPath, scriptName, args, callback) {
             scriptPath: scriptPath,
             args: args
         };
+        console.log("Running on windows")
     } else {
         py_options = {
             mode: 'text',
             pythonPath: '/usr/bin/python',
+            //pythonPath: 'C:/Python32/python.exe',
             pythonOptions: [], // get print results in real-time
             scriptPath: scriptPath,
             args: args
         };
     }
+    console.log("Running on "+process.platform)
 
     ps.PythonShell.run(scriptName, py_options, (err, results) => {
         if (err) throw err;
