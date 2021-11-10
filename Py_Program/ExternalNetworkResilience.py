@@ -1,3 +1,5 @@
+import json
+
 import networkx
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -88,6 +90,7 @@ def colorHighDegreeNodes(graph, num, resilienceType):
 
 
 def runResilienceTest(graph, num, resilienceType):
+    graphCounter = 0
     print("Running resilience test...")
     global degreeTotals, closenessTotals, betweennessTotals, color_map, f
     numNodesOg = len(list(graph.nodes))
@@ -159,7 +162,13 @@ def runResilienceTest(graph, num, resilienceType):
         closenessTotals = []
         betweennessTotals = []
         colorHighDegreeNodes(graph, 5, resilienceType)
+        data = networkx.json_graph.node_link_data(graph, {"link": "edges", "source": "from", "target": "to"})
+        jsonString = json.dumps(data)
+        jsonFile = open("data"+str(graphCounter)+".json", "w")
+        jsonFile.write(jsonString)
+        jsonFile.close()
         drawGraph(graph)
+        graphCounter = graphCounter+1
 
 
 if __name__ == "__main__":
