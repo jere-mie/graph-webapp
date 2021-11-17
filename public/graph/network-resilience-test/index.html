@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Network Resilience Tester</title>
+    <!-- Boostrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/sheet.css">
+    <!-- app css -->
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-3 mr-0 text-light">Network Resilience Test</a>
+    </nav>
+    <div class="contianer-fluid">
+      <div class="row">
+        <nav class="col-md-3 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky container">
+            <form class="">
+              <label >File name</label>
+              <input min="0" step="1" class="form-control" id="file" required autofocus>
+
+              <label >Number of Lines to Read</label>
+              <input type="number" min="1" step="1" class="form-control" id="numLines" required autofocus>
+
+              <label >Input the fault percentage (1, 100)</label>
+              <input type="number" min="1" max="100" class="form-control" id="faultPercent" required autofocus>
+              <br>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="degree">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Degree
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="close">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Closeness
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="between">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Betweenness
+                </label>
+              </div>
+              <hr/>
+              <div class="form-row">
+                <button type="button" class="btn btn-primary my-2" id="btnGenGraph" onclick="btnOnClick(this.id)">Generate Graph</button>
+              </div>
+              
+              <div class="form-row">
+                <button type="button" class="btn btn-primary my-2" id="btnNext" onclick="btnOnClick(this.id)" >Next</button>
+              </div>
+              <div class="form-row">
+                <button type="button" class="btn btn-primary my-2" id="btnPrev" onclick="btnOnClick(this.id)" >Previous</button>
+              </div>
+              <hr />
+              <div class="form-row">
+                <button type="button" class="btn btn-primary mt-4" id="reload" onclick="window.location.href=window.location.href">Reload</button>
+              </div>
+            </form>
+            <div class="form-row">
+              <button type="button" class="btn btn-primary mt-2" id="reload" onclick="simulation.stop()">Stop Simulation</button>
+            </div>
+            <div class="alert alert-warning alert-dismissible my-4" id="Alert" hidden>
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Note!</strong> Python does not generate a complete graph, please continue to next step
+            </div>
+          </div> <!-- /nav sidbar -->
+        </nav>
+      </div> <!-- /row -->
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-9">
+        <div id="svgViewPort"></div>
+      </main>
+    </div> <!-- /container fluid -->
+  </body>
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <!-- D3 -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/d3-transition.v1.min.js"></script>
+  <script src="https://d3js.org/d3-ease.v1.min.js"></script>
+  <!-- app scripts -->
+  <script src="js/script.js"></script>
+  <script src="js/app.js"></script>
+</html>

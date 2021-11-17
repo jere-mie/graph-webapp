@@ -14,7 +14,9 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "esm": "^3.2.25",
     "express": "^4.16.4",
-    "python-shell": "^1.0.7"
+    "numpy": "0.0.1",
+    "python-shell": "^1.0.8"
   }
 }

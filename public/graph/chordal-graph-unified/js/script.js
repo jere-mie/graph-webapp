@@ -59,6 +59,7 @@ function btnOnClick(btnId) {
 
         function updateGraph(gs) {
             graphs = gs;
+            console.log(graphs);
             // update the graph
             nodes = graphs[0].nodes;
             lastNodeId = graphs[0].lastNodeId;
