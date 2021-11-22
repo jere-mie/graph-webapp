@@ -3,8 +3,8 @@ let lastNodeId = 0
 let links = []
 
 // set up SVG for D3
-const width = document.getElementById("svgViewPort").offsetWidth;
-const height = document.getElementById("svgViewPort").offsetHeight;
+const width = document.getElementById("svgViewPort").offsetWidth*2;
+const height = document.getElementById("svgViewPort").offsetHeight*2;
 const colors = d3.scaleOrdinal(d3.schemeCategory10);
 
 // select DOM object to display graph
@@ -258,6 +258,19 @@ function hideDragLine() {
     resetMouseVar();
     restart();
 }
+
+//create zoom handler 
+var zoom_handler = d3.zoom()
+    .on("zoom", zoom_actions);
+
+//specify what to do when zoom event listener is triggered 
+function zoom_actions(){
+ g.attr("transform", d3.event.transform);
+}
+
+//add zoom behaviour to the svg element 
+//same as svg.call(zoom_handler); 
+zoom_handler(svg);
 
 function endDragLine(d) {
     // if mouse does not release on node or self reference then skip

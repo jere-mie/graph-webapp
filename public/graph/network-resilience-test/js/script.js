@@ -57,10 +57,25 @@ function btnOnClick(btnId) {
         numLines = parseInt(document.getElementById('numLines').value);
         faultPercent = parseInt(document.getElementById('faultPercent').value);
 
+        degree = document.getElementById('degree').value;
+        betweeness = document.getElementById('between').value;
+        closeness = document.getElementById('close').value;
+
+        resilienceTest = 0;
+
+        if(degree == "on"){
+        	resilienceTest = 1;
+        }
+        if(betweeness == "on"){
+        	resilienceTest = 2;
+        }
+        if(closeness == "on"){
+        	resilienceTest = 3;
+        }
+
         graphCounter = 0;
 
-
-        getGraph(file, numLines, faultPercent, 1, updateGraph);
+        getGraph(file, numLines, faultPercent, resilienceTest, updateGraph);
 
         //console.log(nodes)
         
