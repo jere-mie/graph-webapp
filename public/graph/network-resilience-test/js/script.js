@@ -46,6 +46,7 @@ function updateGraph(gs) {
     lastNodeId = graphs[graphCounter].lastNodeId;
     links = graphs[graphCounter].links;
     restart();
+    updateLabels();
 }
 
 // called button on page
@@ -67,10 +68,10 @@ function btnOnClick(btnId) {
         	resilienceTest = 1;
         }
         if(betweeness == "on"){
-        	resilienceTest = 2;
+        	resilienceTest = 3;
         }
         if(closeness == "on"){
-        	resilienceTest = 3;
+        	resilienceTest = 2;
         }
 
         graphCounter = 0;
@@ -108,6 +109,7 @@ function btnOnClick(btnId) {
         if(graphCounter<graphs.length-1){
             graphCounter+=1;
             updateGraph(graphs);
+            updateLabels();
         }
     }
 
@@ -115,10 +117,19 @@ function btnOnClick(btnId) {
         if(graphCounter>0){
             graphCounter-=1;
             updateGraph(graphs);
+            updateLabels();
         }
     }
     
 }
+
+function updateLabels() {
+	document.getElementById('graphIndex').innerHTML = "Graph: "+(graphCounter+1)+"/"+graphs.length;
+	document.getElementById('nodeLabel').innerHTML = "Nodes: "+nodes.length;
+    document.getElementById('edgeLabel').innerHTML = "Edges: "+links.length;
+
+}
+
 function k_combinations(set, k) {
     var i, j, combs, head, tailcombs;
     

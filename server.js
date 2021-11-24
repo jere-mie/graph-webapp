@@ -12,6 +12,7 @@ const port = 3000
 
 app.listen(port, () => console.log(`app running at http://localhost:${port}`))
 
+//for unified chordal graph module
 function runPythonScript(scriptPath, scriptName, args, callback) {
     let output = ''
     let py_options = {}
@@ -46,6 +47,7 @@ function runPythonScript(scriptPath, scriptName, args, callback) {
     });
 }
 
+//for resience test module
 function runPythonScript2(scriptPath, scriptName, args, callback) {
     let output = ''
     let py_options = {}
@@ -61,7 +63,7 @@ function runPythonScript2(scriptPath, scriptName, args, callback) {
     } else {
         py_options = {
             mode: 'text',
-            pythonPath: '/usr/bin/python',
+            pythonPath: '/usr/bin/python3',
             //pythonPath: 'C:/Python32/python.exe',
             pythonOptions: [], // get print results in real-time
             scriptPath: scriptPath,

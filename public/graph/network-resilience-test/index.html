@@ -46,11 +46,32 @@
                   Betweenness
                 </label>
               </div>
+              <br>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="NetworkX">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Generate NetworkX Graphs
+                </label>
+              </div>
               <hr/>
               <div class="form-row">
                 <button type="button" class="btn btn-primary my-2" id="btnGenGraph" onclick="btnOnClick(this.id)">Generate Graph</button>
               </div>
-              
+              <hr/>
+              <div class="form-row">
+                <label id="graphIndex">Graph: </label>
+              <br/>
+              </div>
+              <div class="form-row">
+              <br>
+                <label id="nodeLabel">Nodes: </label>
+              </div>
+              <div class="form-row">
+              <br/>
+                <label id="edgeLabel">Edges: </label>
+              <br/>
+              </div>
+              <hr/>
               <div class="form-row">
                 <button type="button" class="btn btn-primary my-2" id="btnNext" onclick="btnOnClick(this.id)" >Next</button>
               </div>
