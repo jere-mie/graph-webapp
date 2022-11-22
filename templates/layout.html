@@ -54,8 +54,31 @@
     </nav>
 
     {% block content %}{% endblock %}
+    <br><br><br>
+    <footer class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{ url_for('static', filename='images/logo-light.png') }}" alt="">
+                    <br><br>
+                    <p>This website was put together to provide a visual interface for students to learn about Chordal graphs.</p>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <br><br>
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <br><br>
+            <p>&copy; 2022 Company, Inc. All rights reserved.</p>
+        </div>
+    </footer>
 
     <!-- bootstrap js -->
     <script src="{{ url_for('static', filename='js/bootstrap5.2.3.bundle.min.js') }}"></script>
 </body>
+
 </html>

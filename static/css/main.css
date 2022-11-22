@@ -41,3 +41,15 @@
 .readingsection {
     padding: 100px;
 }
+
+footer {
+    padding: 50px 100px;
+    color: white;
+}
+
+footer p{
+    margin-bottom: 0;
+}
+footer img {
+    width: 80%;
+}
