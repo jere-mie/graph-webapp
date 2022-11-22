@@ -14,10 +14,10 @@
     <meta property="og:type" content="website" />
 
     <!--Style-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap5.2.3.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap5.2.3.min.css') }}">
 
     <!-- custom page head -->
     {% block customhead %}{% endblock %}
@@ -25,9 +25,11 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='images/logo-dark.png') }}" alt="">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,21 +40,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="#">Reading</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Graphing</a>
                     </li>
                 </ul>
             </div>
@@ -62,7 +56,6 @@
     {% block content %}{% endblock %}
 
     <!-- bootstrap js -->
-    <script src="{{ url_for('static', filename='bootstrap5.2.3.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap5.2.3.bundle.min.js') }}"></script>
 </body>
-
 </html>
