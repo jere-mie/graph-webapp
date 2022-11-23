@@ -23,12 +23,15 @@
 }
 
 .cardsection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-align: center;
     background-color: #f2f2f2;
     padding: 100px;
+}
+
+.carditems {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carditem {
@@ -43,7 +46,7 @@
 }
 
 @media (max-width: 768px) {
-    .cardsection {
+    .carditems {
         flex-direction: column;
     }
     .carditem{
