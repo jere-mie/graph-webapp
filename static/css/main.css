@@ -50,6 +50,15 @@ footer {
 footer p{
     margin-bottom: 0;
 }
+
 footer img {
     width: 80%;
 }
+
+footer li a {
+    color: white;
+    text-decoration: none;
+}
+footer li a:hover {
+    color: #bbb;
+} 
