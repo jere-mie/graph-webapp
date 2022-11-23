@@ -31,12 +31,6 @@
     padding: 100px;
 }
 
-@media (max-width: 418px) {
-    .cardsection {
-        flex-direction: column;
-    }
-}
-
 .carditem {
     background-color: white;
     padding: 24px;
@@ -46,6 +40,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .cardsection {
+        flex-direction: column;
+    }
+    .carditem{
+        margin-bottom: 24px;
+    }
 }
 
 .carditem p {
@@ -58,6 +61,10 @@
 }
 .readingsection {
     padding: 100px;
+    padding-bottom: 0px;
+}
+.readingsection .reading{
+    margin-bottom: 48px;
 }
 
 footer {
