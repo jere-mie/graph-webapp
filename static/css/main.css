@@ -18,6 +18,10 @@
     margin: 0 auto;
 }
 
+.hero-sm {
+    padding: 75px 0;
+}
+
 .cardsection {
     display: flex;
     align-items: center;
@@ -38,6 +42,14 @@
     justify-content: center;
 }
 
+.carditem p {
+    margin-bottom: 0;
+}
+
+.carditem img {
+    width: 100%;
+    margin-bottom: 16px;
+}
 .readingsection {
     padding: 100px;
 }

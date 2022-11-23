@@ -27,7 +27,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
                 <img src="{{ url_for('static', filename='images/logo-dark.png') }}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -37,16 +37,16 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
+                        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Reading</a>
+                        <a class="nav-link" href="{{ url_for('graph') }}">Graphing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Graphing</a>
+                        <a class="nav-link" href="#">GitHub</a>
                     </li>
                 </ul>
             </div>
@@ -68,9 +68,9 @@
                     <br>
                     <h5>Quick Links</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Graphing</a></li>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('graph') }}">Graphing</a></li>
                         <li><a href="#">GitHub</a></li>
                     </ul>
                 </div>

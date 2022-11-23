@@ -16,6 +16,13 @@ app.config['SECRET_KEY'] = data['secret_key']
 def home():
     return render_template('home.html')
 
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
+@app.route('/graph', methods=['GET'])
+def graph():
+    return render_template('graph.html')
 
 # running the site
 if __name__=='__main__':
