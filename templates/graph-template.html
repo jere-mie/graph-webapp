@@ -1,0 +1,71 @@
+{% extends 'layout.html' %} {% block customhead %}
+
+<!-- graph styles -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/graph-app.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/graph-sheet.css') }}" />
+
+{% endblock %} {% block content %}
+
+<div class="contianer-fluid">
+    <div class="row">
+        <nav class="col-md-3 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky container">
+                <form class="">
+                    <label>Number of Nodes</label>
+                    <input type="number" min="0" step="1" class="form-control" id="numNodes" required autofocus />
+
+                    <hr />
+                    <div class="form-row">
+                        <button type="button" class="btn btn-primary my-2" id="btnGenGraph"
+                            onclick="btnOnClick(this.id)">
+                            Generate Graph
+                        </button>
+                    </div>
+
+                    <div class="form-row">
+                        <button type="button" class="btn btn-primary my-2" id="btnNext" onclick="btnOnClick(this.id)">
+                            Next
+                        </button>
+                    </div>
+                    <hr />
+                    <div class="form-row">
+                        <button type="button" class="btn btn-primary mt-4" id="reload"
+                            onclick="window.location.href=window.location.href">
+                            Reload
+                        </button>
+                    </div>
+                </form>
+                <div class="form-row">
+                    <button type="button" class="btn btn-primary mt-2" id="reload" onclick="simulation.stop()">
+                        Stop Simulation
+                    </button>
+                </div>
+                <hr />
+                <label id="nodeLabel">Nodes: </label>
+                <br />
+                <label id="edgeLabel">Edges: </label>
+                <br />
+                <textarea readonly class="form-control" id="Graph info" , name="Graph info" , cols="45" ,
+                    rows="15"></textarea>
+                <div class="alert alert-warning alert-dismissible my-4" id="Alert" hidden>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Note!</strong> Python does not generate a complete graph,
+                    please continue to next step
+                </div>
+            </div>
+            <!-- /nav sidbar -->
+        </nav>
+    </div>
+    <!-- /row -->
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-9">
+        <div id="svgViewPort"></div>
+    </main>
+</div>
+<!-- /container fluid -->
+
+<!-- D3 -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-transition.v1.min.js"></script>
+<script src="https://d3js.org/d3-ease.v1.min.js"></script>
+
+{% endblock %}

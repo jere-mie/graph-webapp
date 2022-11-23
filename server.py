@@ -24,6 +24,10 @@ def about():
 def graph():
     return render_template('graph.html')
 
+@app.route('/graphtemplate', methods=['GET'])
+def graphtemplate():
+    return render_template('graph-template.html')
+
 # running the site
 if __name__=='__main__':
     # run this command with any additional arg to run in production
