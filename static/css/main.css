@@ -31,6 +31,12 @@
     padding: 100px;
 }
 
+@media (max-width: 418px) {
+    .cardsection {
+        flex-direction: column;
+    }
+}
+
 .carditem {
     background-color: white;
     padding: 24px;
