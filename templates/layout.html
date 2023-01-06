@@ -54,6 +54,9 @@
     </nav>
 
     {% block content %}{% endblock %}
+    {% if noFooter %}
+    
+    {% else %}
     <br><br><br>
     <footer class="bg-dark">
         <div class="container">
@@ -86,7 +89,7 @@
             </div>
         </div>
     </footer>
-
+    {% endif %}
     <!-- bootstrap js -->
     <script src="{{ url_for('static', filename='js/bootstrap5.2.3.bundle.min.js') }}"></script>
 </body>
