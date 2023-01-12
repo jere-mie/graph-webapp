@@ -1,7 +1,8 @@
 import os
 import json
 import sys
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from chordal_graph_interface import generateCG
 
 # getting config details
 with open('config.json') as f:
@@ -27,6 +28,14 @@ def graph():
 @app.route('/graphtemplate', methods=['GET'])
 def graphtemplate():
     return render_template('graph-template.html')
+
+# API endpoints for frontend to consume
+
+# endpoint for chordal graph
+@app.route('/chordal', methods=['GET'])
+def chordal():
+    graphs = generateCG(request.args.get('nodes'), request.args.get('edges'), request.args.get('deletionstart'))
+    return graphs
 
 # running the site
 if __name__=='__main__':
