@@ -1,5 +1,6 @@
 # Project-specific
 config.json
+*.bak
 
 # Dependency directories
 node_modules/
