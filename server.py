@@ -1,7 +1,7 @@
 import os
 import json
 import sys
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 
 # getting config details
 with open('config.json') as f:
@@ -27,6 +27,12 @@ def graph():
 @app.route('/graphtemplate', methods=['GET'])
 def graphtemplate():
     return render_template('graph-template.html')
+
+@app.route('/graph/<name>', methods=['GET'])
+def graphapp(name):
+    if name not in {"chordal-graph-k-chromatic", "chordal-graph-unified", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test"}:
+        abort(404)
+    return render_template(f'{name}.html')
 
 # running the site
 if __name__=='__main__':
