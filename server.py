@@ -52,6 +52,19 @@ def chordal():
     if edges < 1:
         abort(400, description="edges < 1")
 
+    if deletion_start == 'true' and int(nodes) <= 50:
+        complete_graph = {}
+        complete_graph["nodes"] = []
+        for i in range(nodes):
+            complete_graph["nodes"].append({"id": i})
+        complete_graph["lastNodeId"] = nodes - 1
+        complete_graph["links"] = []
+        for i in range(nodes):
+            for j in range(i, nodes):
+                if i != j:
+                    complete_graph["links"].append({"source": i, "target": j})
+
+
     graphs = generateCG(nodes, edges, deletion_start)
     return jsonify(graphs)
 
