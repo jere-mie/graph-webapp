@@ -2,7 +2,6 @@ import random
 import copy
 import numpy as np
 import networkx as nx # used this only for converting "dictionary typed graph to networkx graph" for visualization with matplotlib
-import matplotlib.pyplot as plt #python plotting library
 import itertools
 import collections
 import json
@@ -1134,16 +1133,5 @@ class ChordalGraph:
         GD = nx.Graph(graphToDraw) #converting "dictionary typed graph" to "networkx graph"
         pos = nx.spring_layout(GD)
     
-        plt.figure()
-        if graphName == 1:
-            plt.title("Complete Graph")
-        elif graphName == 2:
-            plt.title("(Chordal) Tree")
-        elif graphName == 3:
-            plt.title("Clique Tree"+str(self.cliqueTreeNames))
-        elif graphName == 4:
-            plt.title("Chordal Graph"+str(self.cliqueTreeNames))
         #plt.close('all')
         nx.draw_networkx(GD, pos, True)
-        #limits = plt.axis('off')
-        plt.show()
