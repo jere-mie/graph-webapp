@@ -1,7 +1,7 @@
 import os
 import json
 import sys
-from flask import Flask, render_template, request
+from flask import Flask, abort, jsonify, render_template, request
 from chordal_graph_interface import generateCG
 
 # getting config details
@@ -29,13 +29,31 @@ def graph():
 def graphtemplate():
     return render_template('graph-template.html')
 
+# Error handlers
+@app.errorhandler(400)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 400
+
 # API endpoints for frontend to consume
 
 # endpoint for chordal graph
-@app.route('/chordal', methods=['GET'])
+@app.route('/api/unified-graph', methods=['GET'])
 def chordal():
-    graphs = generateCG(request.args.get('nodes'), request.args.get('edges'), request.args.get('deletionstart'))
-    return graphs
+    nodes = request.args.get('nodes')
+    edges = request.args.get('edges')
+    deletion_start = request.args.get('deletionstart')
+
+    if not nodes:
+        abort(400, description="Node(s) not found")
+    if not edges:
+        abort(400, description="Edge(s) not found")
+    if nodes < 1:
+        abort(400, description="nodes < 1")
+    if edges < 1:
+        abort(400, description="edges < 1")
+
+    graphs = generateCG(nodes, edges, deletion_start)
+    return jsonify(graphs)
 
 # running the site
 if __name__=='__main__':
