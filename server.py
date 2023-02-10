@@ -91,6 +91,12 @@ def chordal():
         graphs[0] = complete_graph
     return jsonify(graphs)
 
+@app.route('/graph/<name>', methods=['GET'])
+def graphapp(name):
+    if name not in {"chordal-graph-k-chromatic", "chordal-graph-unified", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test"}:
+        abort(404)
+    return render_template(f'{name}.html')
+
 # running the site
 if __name__=='__main__':
     # run this command with any additional arg to run in production
