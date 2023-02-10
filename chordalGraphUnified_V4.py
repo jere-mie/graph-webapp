@@ -1,12 +1,11 @@
-from __future__ import division
 import random
 import copy
 import numpy as np
 import networkx as nx # used this only for converting "dictionary typed graph to networkx graph" for visualization with matplotlib
-import matplotlib.pyplot as plt #python plotting library
 import itertools
 import collections
 import json
+from functools import reduce
 
 class ChordalGraph:
     """This class turns the chordal gaph into weakly chordal graph. During this process it generates our cycle for the given 
@@ -20,7 +19,7 @@ class ChordalGraph:
         self.verticesList = []
         self.chordalTree = {}
         self.prev_card = 0
-        self.L = [[] for _ in xrange(noNodes+2)]
+        self.L = [[] for _ in range(noNodes+2)]
         self.s = 0
         self.cliqueTree = {}
         self.cliqueTreeNames = {}
@@ -105,7 +104,7 @@ class ChordalGraph:
                 self.chordalTree[i].append(i-1)
             else:
                 methods = random.randint(1, 2)
-                currentNodes = self.chordalTree.keys()
+                currentNodes = list(self.chordalTree.keys())
                 if methods == 1:    # add a new node
                     v1 = random.choice(currentNodes)
                     self.addANode(v1, i) # i is the new node
@@ -154,7 +153,7 @@ class ChordalGraph:
         
     def createEdgeList(self, graph):
         if self.chordalTree:
-            for v1, v in graph.iteritems():
+            for v1, v in list(graph.items()):
                 for v2 in v:
                     e = []
                     if v1<v2:
@@ -168,7 +167,7 @@ class ChordalGraph:
         if graphToCT:
             self.createEdgeList(graphToCT) ###created edgelist for (chordal) tree
             V = []
-            for key,value in graphToCT.iteritems():
+            for key,value in list(graphToCT.items()):
                 V.append(key)
             
             self.s = 0    
@@ -183,7 +182,7 @@ class ChordalGraph:
                         #self.cliqueTreeNames[self.s].append(ks)
                     if new_card != 0:
                         k = self.findMin(Ks)
-                        for key, value in self.cliqueTreeNames.items():
+                        for key, value in list(self.cliqueTreeNames.items()):
                             if k in value:
                                 p = key
                         #p = self.cliqueTreeNames.keys()[self.cliqueTreeNames.values().index(k)]
@@ -267,7 +266,7 @@ class ChordalGraph:
             labelsDict.update({k:self.L[k]})
             tempLabelsList.append(self.L[k])
         minV = sorted(tempLabelsList, key=lambda l: (len(l), l))
-        return labelsDict.keys()[labelsDict.values().index(minV[0])]
+        return list(labelsDict.keys())[list(labelsDict.values()).index(minV[0])]
         #labelsDict2 = sorted(labelsDict.items(),key=operator.itemgetter(1))
         #return labelsDict2[0][0]
        
@@ -362,14 +361,14 @@ class ChordalGraph:
             u.append(uv[0])
             v.append(uv[1])
 
-            for x, Nx in self.cliqueTree.iteritems():
+            for x, Nx in list(self.cliqueTree.items()):
                 Kx = self.cliqueTreeNames[x]
                 if len(list(set(uv).intersection(set(Kx))))==2:
                     found.append(x)
             if len(found) > 1 or len(self.cliqueTreeNames[found[0]]) <= 2:
                 continue
             else:
-                print str(edgeCount)+ ": The edge is deleting: "+str(uv)
+                print((str(edgeCount)+ ": The edge is deleting: "+str(uv)))
                 x = found[0]
                 Kx = self.cliqueTreeNames[x]
                 k = len(Kx)
@@ -603,7 +602,7 @@ class ChordalGraph:
         if len(self.cliqueTree) == 1:
             self.dfs(random.choice(list(self.cliqueTree)))
         else:
-            for node, neighbors in self.cliqueTree.iteritems():
+            for node, neighbors in list(self.cliqueTree.items()):
                 if len(neighbors) == 1 and node not in self.visited:
                     self.dfs(node)
     
@@ -850,7 +849,7 @@ class ChordalGraph:
             
             ###Random Implementation###
             cliqueTreeNodes = []
-            for node, neighbors in self.cliqueTree.iteritems():
+            for node, neighbors in list(self.cliqueTree.items()):
                 cliqueTreeNodes.append(node)
             while not foundXY:
                 xy = random.sample(cliqueTreeNodes, 2)
@@ -884,7 +883,7 @@ class ChordalGraph:
                         v = random.sample(vs, 1)
                         #if numberOfEdgesToBeInserted == 8:
                             #v = [5]
-                        print str(edgeCount)+ ": The edge is adding: "+str(u+v)
+                        print((str(edgeCount)+ ": The edge is adding: "+str(u+v)))
                         foundXY = True
                     elif x[0] not in self.cliqueTree[y[0]]:
                         path = self.bfs_shortest_path(x[0], y[0])
@@ -900,7 +899,7 @@ class ChordalGraph:
                                 vs = list(set(Ky)-set(I))
                                 u = random.sample(us, 1)
                                 v = random.sample(vs, 1)
-                                print str(edgeCount)+ ": The edge is adding: "+str(u+v)
+                                print((str(edgeCount)+ ": The edge is adding: "+str(u+v)))
                                 foundXY = True
                                 ei = []
                                 ej = []
@@ -1029,7 +1028,7 @@ class ChordalGraph:
                     auxGraph = self.createAuxGraph(self.weaklyChordalGraph, auxNodes)
                     if not self.isReachable(auxGraph, u, v):
                         self.addAnEdge(self.weaklyChordalGraph, u, v)
-                        print "\nAdded edge between: "+str(u)+" and "+str(v)
+                        print(("\nAdded edge between: "+str(u)+" and "+str(v)))
                         newEdges += 1
         #print self.weaklyChordalGraph
         #G = nx.Graph(self.weaklyChordalGraph)
@@ -1066,40 +1065,40 @@ class ChordalGraph:
         """function to creae graphs C and G[C]"""
         auxGraph = {}
         for i in auxNodes:
-            if graph.has_key(i):
+            if i in graph:
                 auxGraph[i] = list(set(graph[i]).intersection(set(auxNodes)))
         return auxGraph
     
     def printInfo(self, graphToDraw):
         G = nx.Graph(graphToDraw)
         if nx.is_chordal(G):
-            print "========================"
-            print "This is a Chordal graph."
-            print "========================"
+            print("========================")
+            print("This is a Chordal graph.")
+            print("========================")
         #print "\nPrint Chordal Graph (adjacency list): "
-        print "Clique Tree: "+ str(self.cliqueTree)
+        print(("Clique Tree: "+ str(self.cliqueTree)))
         #print "Clique Tree (RIP):"+str(self.visited)
-        print "Maximal Cliques:"+ str(self.cliqueTreeNames)
+        print(("Maximal Cliques:"+ str(self.cliqueTreeNames)))
         self.dictToJSON(graphToDraw)
         if not self.completeGraph and not self.chordalTree:
-            print "From Complete Graph (in Adjacency List): "+ str(graphToDraw)
-            print "From Complete Graph (in JSON): "+ str(self.graphInJSON)
+            print(("From Complete Graph (in Adjacency List): "+ str(graphToDraw)))
+            print(("From Complete Graph (in JSON): "+ str(self.graphInJSON)))
         else:
-            print "From (Chordal) Tree (in Adjacency List): "+ str(graphToDraw)
-            print "From (Chordal) Tree (in JSON): "+ str(self.graphInJSON)
+            print(("From (Chordal) Tree (in Adjacency List): "+ str(graphToDraw)))
+            print(("From (Chordal) Tree (in JSON): "+ str(self.graphInJSON)))
         cliqueSize = []
-        for k, v in self.cliqueTreeNames.iteritems():
+        for k, v in list(self.cliqueTreeNames.items()):
             cliqueSize.append(len(v))
         counter = collections.Counter(cliqueSize)
         #if self.chordalTree:
             #print "PEO: "+str(self.revAlpha)
-        print "No. of Maximal Cliques: "+ str(len(self.cliqueTreeNames))
-        print "Min Clique Size: "+ str(min(cliqueSize))
-        print "Max Clique Size: "+ str(max(cliqueSize))
-        print "Mean Clique Size: "+ str(reduce(lambda x, y: x + y, cliqueSize) / len(cliqueSize))
-        print "Sd of clique sizes: " + str(np.std(cliqueSize))
-        print "Variance: " + str(np.var(cliqueSize))
-        print "Maximal Cliques Frequency: " + str(counter)
+        print(("No. of Maximal Cliques: "+ str(len(self.cliqueTreeNames))))
+        print(("Min Clique Size: "+ str(min(cliqueSize))))
+        print(("Max Clique Size: "+ str(max(cliqueSize))))
+        print(("Mean Clique Size: "+ str(reduce(lambda x, y: x + y, cliqueSize) / len(cliqueSize))))
+        print(("Sd of clique sizes: " + str(np.std(cliqueSize))))
+        print(("Variance: " + str(np.var(cliqueSize))))
+        print(("Maximal Cliques Frequency: " + str(counter)))
         
         #f = open('output_Chordal.txt','a')
         #print >>f, "PEO: "+str(self.revAlpha)
@@ -1120,7 +1119,7 @@ class ChordalGraph:
     def plotGraph(self, graphToDraw, graphName):
         """function plot complete graph"""
         chordalEdges = 0
-        for node, degree in graphToDraw.iteritems():
+        for node, degree in list(graphToDraw.items()):
             chordalEdges += len(degree)
         #if graphName == 1:
             #print "\nNo. of Complete Graph Edges: "+ str(chordalEdges/2)
@@ -1134,16 +1133,5 @@ class ChordalGraph:
         GD = nx.Graph(graphToDraw) #converting "dictionary typed graph" to "networkx graph"
         pos = nx.spring_layout(GD)
     
-        plt.figure()
-        if graphName == 1:
-            plt.title("Complete Graph")
-        elif graphName == 2:
-            plt.title("(Chordal) Tree")
-        elif graphName == 3:
-            plt.title("Clique Tree"+str(self.cliqueTreeNames))
-        elif graphName == 4:
-            plt.title("Chordal Graph"+str(self.cliqueTreeNames))
         #plt.close('all')
         nx.draw_networkx(GD, pos, True)
-        #limits = plt.axis('off')
-        plt.show()

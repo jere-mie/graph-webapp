@@ -7,7 +7,6 @@ import chordalGraphUnified_V4 as CG
 # number of nodes and edges
 if not len(sys.argv) == 4:
     exit()
-print >> sys.stderr, "test"
 noNodes = int(sys.argv[1])
 noEdges = int(sys.argv[2])
 

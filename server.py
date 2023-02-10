@@ -1,7 +1,8 @@
 import os
 import json
 import sys
-from flask import Flask, render_template, abort
+from flask import Flask, abort, jsonify, render_template, request
+from chordal_graph_interface import generateCG
 
 # getting config details
 with open('config.json') as f:
@@ -27,6 +28,68 @@ def graph():
 @app.route('/graphtemplate', methods=['GET'])
 def graphtemplate():
     return render_template('graph-template.html')
+
+# Error handlers
+@app.errorhandler(400)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 400
+
+# API endpoints for frontend to consume
+
+# endpoint for chordal graph
+@app.route('/api/unified-graph', methods=['GET'])
+def chordal():
+    nodes = int(request.args.get('nodes'))
+    edges = int(request.args.get('edges'))
+    deletion_start = request.args.get('deletionstart')
+    complete_graph = {}
+    
+    if not nodes:
+        abort(400, description="Node(s) not found")
+    if not edges:
+        abort(400, description="Edge(s) not found")
+    if nodes < 1:
+        abort(400, description="nodes < 1")
+    if edges < 1:
+        abort(400, description="edges < 1")
+
+    if deletion_start == 'true' and int(nodes) <= 50:
+        
+        complete_graph["nodes"] = []
+        for i in range(nodes):
+            complete_graph["nodes"].append({"id": i})
+        complete_graph["lastNodeId"] = nodes - 1
+        complete_graph["links"] = []
+        for i in range(nodes):
+            for j in range(i, nodes):
+                if i != j:
+                    complete_graph["links"].append({"source": i, "target": j})
+
+    def adjList2linkPairs(adjlist):
+        keys = adjlist.keys
+        graph = {}
+        nodeobjects = [{id: key} for key in keys]
+        graph["nodes"] = nodeobjects
+        lastNodeID = len(keys)-1
+        graph["lastNodeID"] = lastNodeID
+        linkpairs = []
+
+        for i in range(len(keys)):
+            key = keys[i]
+            for j in len(adjlist[key]):
+                n0 = int(key)
+                n1 = adjlist[key][j]
+
+                pair = {"source": n0, "target": n1}
+                if pair not in linkpairs:
+                    linkpairs.append(pair)
+        graph["links"] = map(jsonify, linkpairs)
+
+    graphs = generateCG(nodes, edges, deletion_start)
+    map(adjList2linkPairs, graphs)
+    if deletion_start and nodes <= 50:
+        graphs[0] = complete_graph
+    return jsonify(graphs)
 
 @app.route('/graph/<name>', methods=['GET'])
 def graphapp(name):
