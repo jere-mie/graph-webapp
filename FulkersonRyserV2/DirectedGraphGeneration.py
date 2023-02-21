@@ -5,6 +5,7 @@
 
 import networkx as nx 
 import matplotlib.pyplot as plt
+import random
 
 def displayGraph(G):
     pos = nx.circular_layout(G)
@@ -27,6 +28,26 @@ def displayGraph(G):
     plt.axis('off')
     plt.show()
 
+def GenerateDegrees(n, minDeg, maxDeg):
+    degSeq = []
+    sumDeg = 0
+    for i in range(n-1):
+        x = random.randint(minDeg, maxDeg)
+        degSeq.append(x)
+        sumDeg = sumDeg + x
+    if sumDeg % 2 == 0:
+        if minDeg % 2 == 0:
+            degSeq.append(minDeg)
+        else:
+            degSeq.append(minDeg + 1)
+    else:
+        if minDeg % 2 == 0:
+            degSeq.append(minDeg + 1)
+        else:
+            degSeq.append(minDeg)
+    degSeq=sorted(degSeq, reverse=True)
+    return degSeq
+
 def constructDirectedGraph(G, degList, n):
     degreePairList = []
     # create a list of degree pairs
@@ -39,14 +60,12 @@ def constructDirectedGraph(G, degList, n):
 
     while len(rightDegSet) > 0:
         r = rightDegSet.pop(0)
-        print("Vertex assigned to Vr = " + str(r[2]))
         # case 0
         for item in rightDegSet:
             if r[0] == 0:
                 break
             else:
                 if item[1] > 0:
-                    print("Case 0")
                     r[0] = r[0] - 1
                     item[1] = item[1] - 1
                     G.add_edge(r[2], item[2])
@@ -55,7 +74,6 @@ def constructDirectedGraph(G, degList, n):
                 break
             else:
                 if item[1] > 0:
-                    print("Case 0")
                     r[0] = r[0] - 1
                     item[1] = item[1] - 1
                     G.add_edge(r[2], item[2])
@@ -68,7 +86,6 @@ def constructDirectedGraph(G, degList, n):
                 outEdgeList = G.out_edges(leftItem[2])
                 for outEdge in outEdgeList:
                     if outEdge[1] in rightDegSet[:,2] and not G.has_edge(r[2], outEdge[1]):
-                        print("Case 1")
                         G.remove_edge(outEdge[0], outEdge[1])
                         r[0] = r[0] - 1
                         r[1] = r[1] - 1
@@ -85,7 +102,6 @@ def constructDirectedGraph(G, degList, n):
                     tempList = filter(lambda x: x[1] > 0 and not G.has_edge(outEdge[0], x[2]), rightDegSet)
                     if len(tempList) > 0:
                         if outEdge[1] in rightDegSet[:,2] and not G.has_edge(r[2], outEdge[1]):
-                            print("Case 2")
                             G.remove_edge(outEdge[0], outEdge[1])
                             r[0] = r[0] - 1
                             G.add_edge(outEdge[0], tempList[0][2])
@@ -101,7 +117,6 @@ def constructDirectedGraph(G, degList, n):
                     tempList = filter(lambda x: x[1] > 0 and not G.has_edge(outEdge[0], x[2]), leftDegSet)
                     if len(tempList) > 0:
                         if outEdge[1] in rightDegSet[:,2] and not G.has_edge(r[2], outEdge[1]):
-                            print("Case 3")
                             G.remove_edge(outEdge[0], outEdge[1])
                             r[0] = r[0] - 1
                             G.add_edge(outEdge[0], tempList[0][2])
