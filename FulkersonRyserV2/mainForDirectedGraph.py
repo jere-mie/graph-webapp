@@ -94,4 +94,5 @@ if __name__ == '__main__':
         sortedDegList = kw.sortVertices(degList1, n)
         kw.constructDirectedGraph(G, sortedDegList, n)
         kw.displayGraph(G)
+        print(G)
 

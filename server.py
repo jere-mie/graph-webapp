@@ -3,6 +3,7 @@ import json
 import sys
 from flask import Flask, abort, jsonify, render_template, request
 from chordal_graph_interface import generateCG
+import FulkersonRyserV2.DirectedGraphGeneration.py
 
 # getting config details
 with open('config.json') as f:
@@ -91,11 +92,38 @@ def chordal():
         graphs[0] = complete_graph
     return jsonify(graphs)
 
+@app.route('/api/fulkerson', methods=['GET']) # we are receiving two lists from frontent, indegrees and outdegrees
+def fulkersonryser():
+    indegrees = list(request.args.get("indegrees"))
+    outdegrees = list(request.args.get("outdegrees"))
+    num_nodes = len(outdegrees)
+
+    degList=[]
+    valid = 1
+
+    for i in range(num_nodes):
+
+        v1 = v1 + indeg
+        v2 = v2 + outdeg
+        if (v1 >= num_nodes or v2 >= num_nodes):
+            print ("graph cannot be created")
+            valid = 0
+        degList.append(degValue) # adding the element
+    if (indeg != outdeg):
+        valid = 0
+    if (valid == 1):
+        sortedDegList = kw.sortVertices(degList, n)
+        kw.constructDirectedGraph(G, sortedDegList, n)
+        kw.displayGraph(G)
+
+
+
 @app.route('/graph/<name>', methods=['GET'])
 def graphapp(name):
     if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test"}:
         abort(404)
     return render_template(f'{name}.html')
+
 
 # running the site
 if __name__=='__main__':

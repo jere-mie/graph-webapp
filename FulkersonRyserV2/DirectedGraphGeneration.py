@@ -57,6 +57,13 @@ def constructDirectedGraph(G, degList, n):
     leftDegSet = []
     rightDegSet = []
     rightDegSet = degreePairList
+    
+    iterations = [] # FINAL JSON
+    
+    # TEMP VARIABLES FOR ABOVE JSON
+    flag = False
+    addEdge = []
+    delEdge = []
 
     while len(rightDegSet) > 0:
         r = rightDegSet.pop(0)
@@ -69,6 +76,8 @@ def constructDirectedGraph(G, degList, n):
                     r[0] = r[0] - 1
                     item[1] = item[1] - 1
                     G.add_edge(r[2], item[2])
+                    addEdge.append([r[2], item[2]])
+                    flag = True
         for item in leftDegSet:
             if r[0] == 0:
                 break
@@ -77,7 +86,18 @@ def constructDirectedGraph(G, degList, n):
                     r[0] = r[0] - 1
                     item[1] = item[1] - 1
                     G.add_edge(r[2], item[2])
-        
+                    addEdge.append([r[2], item[2]])
+                    flag = True
+        if flag:
+            iterations.append({
+                'case': 0,
+                'addEdge': addEdge,
+                'delEdge': delEdge
+            })
+            addEdge = []
+            delEdge = []
+            flag = False
+
         # case 1
         while r[0] > 0 and r[1] > 0:
             for leftItem in leftDegSet:
@@ -87,11 +107,25 @@ def constructDirectedGraph(G, degList, n):
                 for outEdge in outEdgeList:
                     if outEdge[1] in rightDegSet[:,2] and not G.has_edge(r[2], outEdge[1]):
                         G.remove_edge(outEdge[0], outEdge[1])
+                        delEdge.append([outEdge[0], outEdge[1]])
                         r[0] = r[0] - 1
                         r[1] = r[1] - 1
                         G.add_edge(outEdge[0], r[2])
+                        addEdge.append([outEdge[0], r[2]])
                         G.add_edge(r[2], outEdge[1])
+                        addEdge.append([r[2], outEdge[1]])
+                        flag = True
                         break
+        if flag:
+            iterations.append({
+                'case': 1,
+                'addEdge': addEdge,
+                'delEdge': delEdge
+            })
+            addEdge = []
+            delEdge = []
+            flag = False
+
         # case 2
         while r[0] > 0:
             for leftItem in leftDegSet:
@@ -103,10 +137,25 @@ def constructDirectedGraph(G, degList, n):
                     if len(tempList) > 0:
                         if outEdge[1] in rightDegSet[:,2] and not G.has_edge(r[2], outEdge[1]):
                             G.remove_edge(outEdge[0], outEdge[1])
+                            delEdge.append([outEdge[0], outEdge[1]])
                             r[0] = r[0] - 1
                             G.add_edge(outEdge[0], tempList[0][2])
+                            addEdge.append([outEdge[0], tempList[0][2]])
                             G.add_edge(r[2], outEdge[1])
+                            addEdge.append([r[2], outEdge[1]])
+                            flag = True
                             break
+        
+        if flag:
+            iterations.append({
+                'case': 2,
+                'addEdge': addEdge,
+                'delEdge': delEdge
+            })
+            addEdge = []
+            delEdge = []
+            flag = False
+
         # case 3
         while r[0] > 0:
             for leftItem in leftDegSet:
@@ -118,14 +167,30 @@ def constructDirectedGraph(G, degList, n):
                     if len(tempList) > 0:
                         if outEdge[1] in rightDegSet[:,2] and not G.has_edge(r[2], outEdge[1]):
                             G.remove_edge(outEdge[0], outEdge[1])
+                            delEdge.append([outEdge[0], outEdge[1]])
                             r[0] = r[0] - 1
                             G.add_edge(outEdge[0], tempList[0][2])
+                            addEdge.append([outEdge[0], tempList[0][2]])
                             G.add_edge(r[2], outEdge[1])
+                            addEdge.append([r[2], outEdge[1]])
+                            flag = True
                             break
+        
+        if flag:
+            iterations.append({
+                'case': 3,
+                'addEdge': addEdge,
+                'delEdge': delEdge
+            })
+            addEdge = []
+            delEdge = []
+            flag = False
+
         if r[0] > 0:
             print("Outdegrees not saturated. Graph unrealizable")
         else:
             leftDegSet.append(r)
+    return(iterations)
 
 def greaterThan(item1, item2):
     vertex1 = item1.split(',')
