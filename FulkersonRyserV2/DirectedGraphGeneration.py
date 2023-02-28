@@ -4,7 +4,6 @@
 # When the last vertex is r all the vertices have the outdegrees exhausted except for the vertex r. 
 
 import networkx as nx 
-import matplotlib.pyplot as plt
 import random
 
 def displayGraph(G):

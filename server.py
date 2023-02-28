@@ -3,10 +3,11 @@ import json
 import sys
 from flask import Flask, abort, jsonify, render_template, request
 from chordal_graph_interface import generateCG
-import FulkersonRyserV2.DirectedGraphGeneration.py
+from FulkersonRyserV2 import DirectedGraphGeneration as kw
+import networkx as nx 
 
 # getting config details
-with open('config.json') as f:
+with open('example-config.json') as f:
     data = json.load(f)
 
 # initializing Flask
@@ -92,29 +93,24 @@ def chordal():
         graphs[0] = complete_graph
     return jsonify(graphs)
 
-@app.route('/api/fulkerson', methods=['GET']) # we are receiving two lists from frontent, indegrees and outdegrees
+@app.route('/api/fulkerson', methods=['GET']) # we are receiving two lists from frontens, indegrees and outdegrees, whose elements should be seperated by a comma in the request
 def fulkersonryser():
-    indegrees = list(request.args.get("indegrees"))
-    outdegrees = list(request.args.get("outdegrees"))
+    G = nx.MultiDiGraph()
+    indegrees = str(request.args.get("indegrees")).split(",")
+    outdegrees = str(request.args.get("outdegrees")).split(",")
     num_nodes = len(outdegrees)
-
+    print("n: ", num_nodes)
+    print("ind: ", indegrees)
+    print("outd: ", outdegrees)
     degList=[]
-    valid = 1
 
     for i in range(num_nodes):
+        degValue = [str(outdegrees[i]) + "," + str(indegrees[i]), i+1]
+        degList.append(degValue)
+        print("dv: ", degValue)
 
-        v1 = v1 + indeg
-        v2 = v2 + outdeg
-        if (v1 >= num_nodes or v2 >= num_nodes):
-            print ("graph cannot be created")
-            valid = 0
-        degList.append(degValue) # adding the element
-    if (indeg != outdeg):
-        valid = 0
-    if (valid == 1):
-        sortedDegList = kw.sortVertices(degList, n)
-        kw.constructDirectedGraph(G, sortedDegList, n)
-        kw.displayGraph(G)
+    sortedDegList = kw.sortVertices(degList, num_nodes)
+    return kw.constructDirectedGraph(G, sortedDegList, num_nodes)
 
 
 
