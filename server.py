@@ -116,7 +116,7 @@ def fulkersonryser():
 
 @app.route('/graph/<name>', methods=['GET'])
 def graphapp(name):
-    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test"}:
+    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser'}:
         abort(404)
     return render_template(f'{name}.html')
 
