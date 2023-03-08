@@ -4,7 +4,8 @@ import sys
 from flask import Flask, abort, jsonify, render_template, request
 from chordal_graph_interface import generateCG
 from FulkersonRyserV2 import DirectedGraphGeneration as kw
-import networkx as nx 
+from HavelHakimi import myHHFunction as hh
+import networkx as nx
 
 # getting config details
 with open('example-config.json') as f:
@@ -14,24 +15,30 @@ with open('example-config.json') as f:
 app = Flask(__name__)
 app.config['SECRET_KEY'] = data['secret_key']
 
+
 @app.route('/home', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
 
+
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
 
+
 @app.route('/graph', methods=['GET'])
 def graph():
     return render_template('graph.html')
+
 
 @app.route('/graphtemplate', methods=['GET'])
 def graphtemplate():
     return render_template('graph-template.html')
 
 # Error handlers
+
+
 @app.errorhandler(400)
 def resource_not_found(e):
     return jsonify(error=str(e)), 400
@@ -39,13 +46,15 @@ def resource_not_found(e):
 # API endpoints for frontend to consume
 
 # endpoint for chordal graph
+
+
 @app.route('/api/unified-graph', methods=['GET'])
 def chordal():
     nodes = int(request.args.get('nodes'))
     edges = int(request.args.get('edges'))
     deletion_start = request.args.get('deletionstart')
     complete_graph = {}
-    
+
     if not nodes:
         abort(400, description="Node(s) not found")
     if not edges:
@@ -56,7 +65,7 @@ def chordal():
         abort(400, description="edges < 1")
 
     if deletion_start == 'true' and int(nodes) <= 50:
-        
+
         complete_graph["nodes"] = []
         for i in range(nodes):
             complete_graph["nodes"].append({"id": i})
@@ -93,7 +102,9 @@ def chordal():
         graphs[0] = complete_graph
     return jsonify(graphs)
 
-@app.route('/api/fulkerson', methods=['GET']) # we are receiving two lists from frontens, indegrees and outdegrees, whose elements should be seperated by a comma in the request
+
+# we are receiving two lists from frontens, indegrees and outdegrees, whose elements should be seperated by a comma in the request
+@app.route('/api/fulkerson', methods=['GET'])
 def fulkersonryser():
     G = nx.MultiDiGraph()
     indegrees = str(request.args.get("indegrees")).split(",")
@@ -102,7 +113,7 @@ def fulkersonryser():
     print("n: ", num_nodes)
     print("ind: ", indegrees)
     print("outd: ", outdegrees)
-    degList=[]
+    degList = []
 
     for i in range(num_nodes):
         degValue = [str(outdegrees[i]) + "," + str(indegrees[i]), i+1]
@@ -112,6 +123,18 @@ def fulkersonryser():
     sortedDegList = kw.sortVertices(degList, num_nodes)
     return kw.constructDirectedGraph(G, sortedDegList, num_nodes)
 
+# we are receiving one list from frontend, a list of node degrees
+
+
+@app.route('/api/havelhakimi', methods=['GET'])
+def havelhakimi():
+    degree_list_input = request.args.get("degreelist")
+    degree_list_input = degree_list_input.split(",")
+
+    degreeList = [int(x) for x in degree_list_input]
+
+    graph = hh.constructGraph(len(degreeList), degreeList, nx.Graph())
+    return jsonify(graph)
 
 
 @app.route('/graph/<name>', methods=['GET'])
@@ -122,7 +145,7 @@ def graphapp(name):
 
 
 # running the site
-if __name__=='__main__':
+if __name__ == '__main__':
     # run this command with any additional arg to run in production
     if len(sys.argv) > 1:
         print('<< PROD >>')
