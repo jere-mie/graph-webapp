@@ -34,7 +34,7 @@ def displayGraph(G):
 
 
 def constructGraph(n, degSeq, G):
-    print("n=", n)
+    # print("n=", n)
     nodeList = []
     for i in range(0, n):
         nodeList.append(i)
@@ -50,7 +50,7 @@ def constructGraph(n, degSeq, G):
 
     # sort in decreasing order with respect to the vertex degrees
     DS = sorted(DS, key=lambda x: x[1], reverse=True)
-    print("Initial DS=", DS)
+    # print("Initial DS=", DS)
 
     # Extract residual degree and node-label lists
     nodeList = [x[0] for x in DS]  # Node label list
@@ -63,10 +63,10 @@ def constructGraph(n, degSeq, G):
 
     while (resDegList[0] > 0 and resDegList[0] <= rightIndex):
 
-        print("\n--------------------------\n")
-        print("Right index is ", rightIndex)
-        print("Res deg list: ", resDegList)
-        print("DS: ", DS)
+        # print("\n--------------------------\n")
+        # print("Right index is ", rightIndex)
+        # print("Res deg list: ", resDegList)
+        # print("DS: ", DS)
 
         # Collect the non-zero nodes
         eligibleNodes = []
@@ -76,7 +76,7 @@ def constructGraph(n, degSeq, G):
 
         # Choose a node randomly
         k = random.choice(eligibleNodes)
-        print("Chosen node : ", k)
+        # print("Chosen node : ", k)
 
         # Inserting k at the start of the list
         for i in range(0, len(DS)):
@@ -84,25 +84,25 @@ def constructGraph(n, degSeq, G):
                 n = DS.pop(i)
                 DS.insert(0, n)
                 break
-        print("DS after picking random node: ", DS)
+        # print("DS after picking random node: ", DS)
 
         nodeList = [x[0] for x in DS]  # updated label list
         resDegList = [x[1] for x in DS]  # updated degree list
 
         leftToRightIndex = 1
-        print(" and leftToRightIndex is ", leftToRightIndex)
+        # print(" and leftToRightIndex is ", leftToRightIndex)
 
         # move right, reduce degrees and add edges
         while (resDegList[0] > 0 and leftToRightIndex <= rightIndex):
             G.add_edge(nodeList[0], nodeList[leftToRightIndex])
             # comment this line to stop intermediate displays of partial graphs
             # displayGraph(G)
-            print("Introducing edge between ",
-                  nodeList[0], " and ", nodeList[leftToRightIndex])
+            # print("Introducing edge between ",
+            #   nodeList[0], " and ", nodeList[leftToRightIndex])
             resDegList[0] = resDegList[0] - 1
             resDegList[leftToRightIndex] = resDegList[leftToRightIndex] - 1
             leftToRightIndex += 1
-            print(" and leftToRightIndex is ", leftToRightIndex)
+            # print(" and leftToRightIndex is ", leftToRightIndex)
 
         # Update DS by merging the updated lists
         zippy = zip(nodeList, resDegList)
@@ -110,24 +110,24 @@ def constructGraph(n, degSeq, G):
 
         # resort DS
         DS = sorted(DS, key=lambda x: x[1], reverse=True)
-        print("DS=", DS)
+        # print("DS=", DS)
 
         nodeList = [x[0] for x in DS]  # sorted label list
         resDegList = [x[1] for x in DS]  # sorted degree list
 
-        print("rightIndex: ", rightIndex)
+        # print("rightIndex: ", rightIndex)
         # move rightIndex left to the index of the first non-zero residual degree
         while (rightIndex > 0 and resDegList[rightIndex] == 0):
             rightIndex -= 1
 
-        print("new rightIndex: ", rightIndex)
+        # print("new rightIndex: ", rightIndex)
     # outside the outermost while
     if (resDegList[0] > rightIndex):
         # this happen when the sequence is not graphical
-        print("resDegList[0] is ", resDegList[0],
-              "AND right index is ", rightIndex)
+        # print("resDegList[0] is ", resDegList[0],
+        #       "AND right index is ", rightIndex)
         flag = 0
     else:  # both resDegList[0] and rightIndex are 0
         flag = 1
 
-    return flag
+    return {'nodeList': list(G.nodes()), 'edgeList': list(G.edges())}
