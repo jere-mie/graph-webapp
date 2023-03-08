@@ -1,3 +1,6 @@
+// global var for fulkerson api output
+var fulkersonOutput = "";
+
 function importData(fileName) {
     d3.json("/static/data/".concat(fileName))
         .then(function(d) {
