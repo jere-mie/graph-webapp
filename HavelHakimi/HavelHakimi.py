@@ -1,5 +1,5 @@
 import networkx as nx
-from myHHFunction import graph_exists
+from myHHFunction import constructGraph
 
 deg_seqs = [
     ([5, 1, 1, 1, 1, 1], True),
@@ -13,7 +13,7 @@ deg_seqs = [
 ]
 
 for deg_seq, expected_result in deg_seqs:
-    result = graph_exists(len(deg_seq), deg_seq)
+    result = constructGraph(len(deg_seq), deg_seq, nx.Graph())
     assert result == expected_result, f"For degree sequence {deg_seq}, expected {expected_result}, but got {result}"
 
 print("All test cases passed!")

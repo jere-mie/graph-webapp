@@ -18,79 +18,116 @@ module.
 
 import networkx as nx
 import matplotlib.pyplot as plt
+import copy
+import random
 
 
 def displayGraph(G):
     nx.draw(G, with_labels=True, node_color="white",
             edgecolors='black', font_weight='bold')
+    # AM, 16 Dec, 2020: When is this printed ? Changing from title to suptitle printed this
     plt.suptitle('A Graphic Realization')
+    # inside the drawing area
     plt.show()
 
-
-def constructGraph(n, degSeq):
-
-    # Sort the list in non-increasing order
-    degSeq = sorted(degSeq, reverse=True)
-
-    # Check if the sum of degrees is even
-    if sum(degSeq) % 2 != 0:
-        return False
-
-    # Create empty graph with n nodes
-    G = nx.Graph()
-    G.add_nodes_from(range(n))
-
-    # Keep performing the operations until one
-    # of the stopping condition is met
-    while True:
-
-        # Check if all the degrees are zero
-        if all(deg == 0 for deg in degSeq):
-            return G
-
-        # Check if the largest degree is greater
-        # than the number of remaining vertices
-        if degSeq[0] > len(degSeq) - 1:
-            return nx.Graph()  # Returns an empty graph
-
-        # Connect the node with largest degree
-        # to the next v highest degree nodes
-        v = degSeq[0]
-        degSeq = [deg - 1 for deg in degSeq[1:v+1]] + degSeq[v+1:]
-        G.add_edges_from([(0, i) for i in range(1, v+1)])
-        degSeq[0] = v - len(list(G.adj[0]))
-
-# Function to be passed to back end
+# this function implements the Hakimi-Havel algorithm
 
 
-def graph_exists(n, degSeq):
+def constructGraph(n, degSeq, G):
+    print("n=", n)
+    nodeList = []
+    for i in range(0, n):
+        nodeList.append(i)
+    # print (nodeList)
 
-    # Keep performing the operations until one
-    # of the stopping condition is met
-    while True:
+    resDegList = copy.deepcopy(degSeq)
+    # deepcopy so that changes in resDegList doesn't affect degSeq
 
-        # Sort the list in non-decreasing order
-        degSeq = sorted(degSeq, reverse=True)
+    DS = []
+    # DS is a 2D that helps maintain the degree-vertex label association
+    for i in range(0, n):
+        DS.append((nodeList[i], resDegList[i]))
 
-        # Check if all the elements are equal to 0
-        if degSeq[0] == 0 and degSeq[-1] == 0:
-            return True
+    # sort in decreasing order with respect to the vertex degrees
+    DS = sorted(DS, key=lambda x: x[1], reverse=True)
+    print("Initial DS=", DS)
 
-        # Store the first element in a variable
-        # and delete it from the list
-        v = degSeq[0]
-        degSeq = degSeq[1:]
+    # Extract residual degree and node-label lists
+    nodeList = [x[0] for x in DS]  # Node label list
+    resDegList = [x[1] for x in DS]  # Degree list
 
-        # Check if enough elements
-        # are present in the list
-        if v > len(degSeq):
-            return False
+    rightIndex = n-1
+    # The algorithm is about managing this right index correctly
+    # A leftToRightIndex is used to reduce vertex degrees, from 0
+    # going right and is bounded above by rightIndex
 
-        # Subtract first element from next v elements
-        for i in range(v):
-            degSeq[i] -= 1
+    while (resDegList[0] > 0 and resDegList[0] <= rightIndex):
 
-            # Check if negative element is
-            # encountered after subtraction
-            if degSeq[i] < 0:
-                return False
+        print("\n--------------------------\n")
+        print("Right index is ", rightIndex)
+        print("Res deg list: ", resDegList)
+        print("DS: ", DS)
+
+        # Collect the non-zero nodes
+        eligibleNodes = []
+        for i in range(0, len(resDegList)):
+            if resDegList[i] != 0:
+                eligibleNodes.append(nodeList[i])
+
+        # Choose a node randomly
+        k = random.choice(eligibleNodes)
+        print("Chosen node : ", k)
+
+        # Inserting k at the start of the list
+        for i in range(0, len(DS)):
+            if k == DS[i][0]:
+                n = DS.pop(i)
+                DS.insert(0, n)
+                break
+        print("DS after picking random node: ", DS)
+
+        nodeList = [x[0] for x in DS]  # updated label list
+        resDegList = [x[1] for x in DS]  # updated degree list
+
+        leftToRightIndex = 1
+        print(" and leftToRightIndex is ", leftToRightIndex)
+
+        # move right, reduce degrees and add edges
+        while (resDegList[0] > 0 and leftToRightIndex <= rightIndex):
+            G.add_edge(nodeList[0], nodeList[leftToRightIndex])
+            # comment this line to stop intermediate displays of partial graphs
+            # displayGraph(G)
+            print("Introducing edge between ",
+                  nodeList[0], " and ", nodeList[leftToRightIndex])
+            resDegList[0] = resDegList[0] - 1
+            resDegList[leftToRightIndex] = resDegList[leftToRightIndex] - 1
+            leftToRightIndex += 1
+            print(" and leftToRightIndex is ", leftToRightIndex)
+
+        # Update DS by merging the updated lists
+        zippy = zip(nodeList, resDegList)
+        DS = list(zippy)
+
+        # resort DS
+        DS = sorted(DS, key=lambda x: x[1], reverse=True)
+        print("DS=", DS)
+
+        nodeList = [x[0] for x in DS]  # sorted label list
+        resDegList = [x[1] for x in DS]  # sorted degree list
+
+        print("rightIndex: ", rightIndex)
+        # move rightIndex left to the index of the first non-zero residual degree
+        while (rightIndex > 0 and resDegList[rightIndex] == 0):
+            rightIndex -= 1
+
+        print("new rightIndex: ", rightIndex)
+    # outside the outermost while
+    if (resDegList[0] > rightIndex):
+        # this happen when the sequence is not graphical
+        print("resDegList[0] is ", resDegList[0],
+              "AND right index is ", rightIndex)
+        flag = 0
+    else:  # both resDegList[0] and rightIndex are 0
+        flag = 1
+
+    return flag
