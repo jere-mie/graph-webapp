@@ -30,7 +30,7 @@ if DeletionStart:
     initGraph.rip()
     initGraph.dictToJSON(initGraph.chordalGraph)
     graphs.append(initGraph.graphInJSON)
-    #initGraph.printInfo(initGraph.chordalTree)
+    # initGraph.printInfo(initGraph.chordalTree)
 
 else:
     # create tree
@@ -48,7 +48,7 @@ else:
     initGraph.rip()
     initGraph.dictToJSON(initGraph.chordalGraph)
     graphs.append(initGraph.graphInJSON)
-    #initGraph.printInfo(initGraph.chordalTree)
+    # initGraph.printInfo(initGraph.chordalTree)
 
 # create array of graphs
 output = '['

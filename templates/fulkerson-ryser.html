@@ -1,0 +1,41 @@
+{% extends 'graph-template.html' %}
+
+{% block sidebar %}
+<h4>Fulkerson-Ryser</h4>
+<p>Work in progress.... this is not yet a working implementation</p>
+<p>Number of Nodes</p>
+<input type="number" min="1" step="1" class="form-control" id="numNodes" required autofocus>
+<br>
+<p>Input a lexicographically-decreasing sequence for in degree</p>
+<input type="text" class="form-control" id="indeglist" required autofocus>
+<br>
+<p>Input a lexicographically-decreasing sequence for out degree</p>
+<input type="text" class="form-control" id="outdeglist" required autofocus>
+<br>
+
+<!-- <input type="number" min="0" max="1" class="form-control" id="prob" required autofocus> -->
+<hr/>
+<button type="button" class="btn btn-primary my-2" onclick="testNodes()">Test Nodes</button>
+<button type="button" class="btn btn-primary my-2" onclick="testLinks()">Test Links</button>
+<hr/>
+<button type="button" class="btn btn-primary my-2" onclick="fulkersonGenerate()">Generate Graph</button>
+<button type="button" class="btn btn-primary my-2" onclick="fulkersonRandomize()">Randomize Input</button>
+<br>
+<button type="button" class="btn btn-primary my-2" onclick="fulkersonNext()">Next</button>
+<hr/>
+<button type="button" class="btn btn-primary mt-4" onclick="window.location.href=window.location.href">Reload</button>
+<br>
+<button type="button" class="btn btn-primary mt-2" onclick="simulation.stop()">Stop Simulation</button>
+<div class="alert alert-warning alert-dismissible my-4" id="Alert" hidden>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Note!</strong> Python does not generate a complete graph, please continue to next step
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/fulkerson-ryser/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/fulkerson-ryser/app.js') }}"></script>
+
+{% endblock %}
