@@ -236,7 +236,7 @@ def constructDirectedGraph(G, degList, n):
             flag = False
 
         if r[0] > 0:
-             print("Outdegrees not saturated. Graph unrealizable")
+             return []
         else:
             leftDegSet.append(r)
         #print(leftDegSet, rightDegSet)
