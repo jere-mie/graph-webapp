@@ -4,6 +4,7 @@ import sys
 from flask import Flask, abort, jsonify, render_template, request
 from chordal_graph_interface import generateCG
 from FulkersonRyserV2 import DirectedGraphGeneration as kw
+from Py_Program import ServerExternalNetworkResilience as nr
 from HavelHakimi import myHHFunction as hh
 import networkx as nx
 
@@ -135,6 +136,38 @@ def havelhakimi():
 
     graph = hh.constructGraph(len(degreeList), degreeList, nx.Graph())
     return jsonify(graph)
+
+@app.route('/api/network_resilience', methods=['GET'])
+def network_resilience():
+    inputfile = request.args.get("file")
+    num_nodes = request.args.get("num_nodes")
+    fault_percent = request.args.get("fault_percent");
+    resilience_type = request.args.get("resilience_type")
+
+    def adjList2linkPairs(adjlist):
+        keys = adjlist.keys
+        graph = {}
+        nodeobjects = [{id: key} for key in keys]
+        graph["nodes"] = nodeobjects
+        lastNodeID = len(keys)-1
+        graph["lastNodeID"] = lastNodeID
+        linkpairs = []
+
+        for i in range(len(keys)):
+            key = keys[i]
+            for j in len(adjlist[key]):
+                n0 = int(key)
+                n1 = adjlist[key][j]
+
+                pair = {"source": n0, "target": n1}
+                if pair not in linkpairs:
+                    linkpairs.append(pair)
+        graph["links"] = map(jsonify, linkpairs)
+
+    ret = nr.main(inputfile, num_nodes, fault_percent, resilience_type)
+    map(adjList2linkPairs, ret)
+    return ret
+
 
 
 @app.route('/graph/<name>', methods=['GET'])

@@ -2,7 +2,6 @@ import json
 
 import networkx
 import networkx as nx
-import matplotlib.pyplot as plt
 #import scipy as sp
 import numpy as np
 import time
@@ -25,8 +24,9 @@ def drawGraph(graph):
 def colorHighDegreeNodes(graph, num, resilienceType):
     #print("Coloring nodes...")
     nodes = list(graph.nodes)
-
+    color_map =[]
     if resilienceType == "degree":
+        degreeTotals = []
         for node in nodes:
             degreeTotals.append(nx.degree(graph, node))
 
@@ -43,6 +43,7 @@ def colorHighDegreeNodes(graph, num, resilienceType):
                 color_map.append('blue')
 
     elif resilienceType == "closeness":
+        closenessTotals = []
         for node in nodes:
             closenessTotals.append(nx.closeness_centrality(graph, node, None, True))
 
@@ -62,6 +63,7 @@ def colorHighDegreeNodes(graph, num, resilienceType):
                 color_map.append('blue')
 
     elif resilienceType == "betweenness":
+        betweennessTotalsDict = []
         betweennessTotalsDict = nx.betweenness_centrality(graph, normalized=True)
         #print(betweennessTotalsDict.values())
 
@@ -169,22 +171,23 @@ def runResilienceTest(graph, num, resilienceType):
         jsonFile = open("data"+str(graphCounter)+".json", "w")
         jsonFile.write(jsonString)
         jsonFile.close()
-        drawGraph(graph)
         graphCounter = graphCounter+1
         #print(jsonString)
+        finalJSonList = ""
         finalJSonList += jsonString
         if loop != num - 1:
             finalJSonList += ', '
+        return finalJSonList
 
 
-if __name__ == "__main__":
+def main(file_name, num_nodes, fault_limit, resilience_type):
     #print(str(sys.argv))
-    filename = sys.argv[1]
+    filename = str(file_name)
     file = open(filename, encoding="utf8")
     #print(filename, "successfully loaded.")
-    limit = int(sys.argv[2])
-    faultLimit = int(sys.argv[3])
-    typeNum = int(sys.argv[4])
+    limit = int(num_nodes)
+    faultLimit = int(fault_limit)
+    typeNum = int(resilience_type)
     resilienceType = ""
     if typeNum == 1:
         resilienceType = "degree"
@@ -243,12 +246,12 @@ if __name__ == "__main__":
     # ---------------------------------------------------------------------------------
     #print(resilienceType)
     colorHighDegreeNodes(graph, 5, resilienceType)  # color before removal
-    drawGraph(graph)  # draw graph before removal
-    runResilienceTest(graph, int(faultLimit / 5), resilienceType)
+    # drawGraph(graph)  # draw graph before removal
+    finalJSonList += runResilienceTest(graph, int(faultLimit / 5), resilienceType)
     total_end = time.time()
 
     finalJSonList += ']'
-    print(finalJSonList)
+    return finalJSonList
 
     #print("Test has finished.")
     #print("Took: ", str(total_end - total_start), " seconds to run test.")
