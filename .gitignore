@@ -1,6 +1,7 @@
 # Project-specific
 config.json
 *.bak
+GraphApp/
 
 # Dependency directories
 node_modules/

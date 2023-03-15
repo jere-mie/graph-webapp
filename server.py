@@ -183,8 +183,8 @@ if __name__ == '__main__':
     # run this command with any additional arg to run in production
     if len(sys.argv) > 1:
         print('<< PROD >>')
-        os.system(f"gunicorn -b '127.0.0.1:{data['port']}' server:app")
+        os.system(f"gunicorn -b '0.0.0.0:{data['port']}' server:app")
     # or just run without an additional arg to run in debug
     else:
         print('<< DEBUG >>')
-        app.run(debug=True)
+        app.run(host="0.0.0.0", debug=True)
