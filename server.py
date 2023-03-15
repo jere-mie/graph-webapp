@@ -130,8 +130,9 @@ def fulkersonryser():
 @app.route('/api/havelhakimi', methods=['GET'])
 def havelhakimi():
     degree_list_input = request.args.get("degreelist")
+    print(degree_list_input)
     degree_list_input = degree_list_input.split(",")
-
+    print(degree_list_input)
     degreeList = [int(x) for x in degree_list_input]
 
     graph = hh.constructGraph(len(degreeList), degreeList, nx.Graph())
@@ -172,7 +173,7 @@ def network_resilience():
 
 @app.route('/graph/<name>', methods=['GET'])
 def graphapp(name):
-    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser'}:
+    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi'}:
         abort(404)
     return render_template(f'{name}.html')
 
