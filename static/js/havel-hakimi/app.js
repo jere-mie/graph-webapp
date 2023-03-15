@@ -14,18 +14,18 @@ const svg = d3.select('#svgViewPort')
     .attr('height', height);
 
 // this adds arrows to make the graph directed
-svg.append("svg:defs").selectAll("marker")
-    .data(["end"])      // Different link/path types can be defined here
-    .enter().append("svg:marker")    // This section adds in the arrows
-    .attr("id", String)
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", 0.5)
-    .attr("markerWidth", 3)
-    .attr("markerHeight", 5)
-    .attr("orient", "auto")
-    .append("svg:path")
-    .attr("d", "M0,-5L10,0L0,5");
+// svg.append("svg:defs").selectAll("marker")
+//     .data(["end"])      // Different link/path types can be defined here
+//     .enter().append("svg:marker")    // This section adds in the arrows
+//     .attr("id", String)
+//     .attr("viewBox", "0 -5 10 10")
+//     .attr("refX", 15)
+//     .attr("refY", 0.5)
+//     .attr("markerWidth", 3)
+//     .attr("markerHeight", 5)
+//     .attr("orient", "auto")
+//     .append("svg:path")
+//     .attr("d", "M0,-5L10,0L0,5");
 
 // set file to load on start up
 fileName = "N4E4/chordalGraph.json"
@@ -41,8 +41,8 @@ const simulation = d3.forceSimulation(nodes)
             .attr('x1', d => d.source.x)
             .attr('y1', d => d.source.y)
             .attr('x2', d => d.target.x)
-            .attr('y2', d => d.target.y)
-            .attr("marker-end", "url(#end)"); // also for adding arrows
+            .attr('y2', d => d.target.y);
+            // .attr("marker-end", "url(#end)"); // also for adding arrows
         node
             .attr('cx', d => d.x)
             .attr('cy', d => d.y);
