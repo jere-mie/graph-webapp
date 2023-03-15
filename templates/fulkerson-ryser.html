@@ -2,26 +2,23 @@
 
 {% block sidebar %}
 <h4>Fulkerson-Ryser</h4>
-<p>Work in progress.... this is not yet a working implementation</p>
-<p>Number of Nodes</p>
-<input type="number" min="1" step="1" class="form-control" id="numNodes" required autofocus>
+<p>Note: All input lists should be comma-separated lists of integers, with no space between them!</p>
+<!-- <p>Number of Nodes</p>
+<input type="number" min="1" step="1" class="form-control" id="numNodes" required autofocus> -->
 <br>
 <p>Input a lexicographically-decreasing sequence for in degree</p>
-<input type="text" class="form-control" id="indeglist" required autofocus>
+<input type="text" class="form-control" id="indeglist" required autofocus value="4,3,2,1">
 <br>
 <p>Input a lexicographically-decreasing sequence for out degree</p>
-<input type="text" class="form-control" id="outdeglist" required autofocus>
+<input type="text" class="form-control" id="outdeglist" required autofocus value="4,3,2,1">
 <br>
 
 <!-- <input type="number" min="0" max="1" class="form-control" id="prob" required autofocus> -->
 <hr/>
-<button type="button" class="btn btn-primary my-2" onclick="testNodes()">Test Nodes</button>
-<button type="button" class="btn btn-primary my-2" onclick="testLinks()">Test Links</button>
-<hr/>
-<button type="button" class="btn btn-primary my-2" onclick="fulkersonGenerate()">Generate Graph</button>
-<button type="button" class="btn btn-primary my-2" onclick="fulkersonRandomize()">Randomize Input</button>
+<button id="genBtn" type="button" class="btn btn-primary my-2" onclick="fulkersonGenerate()">Generate Graph</button>
+<!-- <button id="randBtn" type="button" class="btn btn-primary my-2" onclick="fulkersonRandomize()">Randomize Input</button> -->
 <br>
-<button type="button" class="btn btn-primary my-2" onclick="fulkersonNext()">Next</button>
+<button id="nextBtn" type="button" class="btn btn-primary my-2" onclick="fulkersonNext()">Next</button>
 <hr/>
 <button type="button" class="btn btn-primary mt-4" onclick="window.location.href=window.location.href">Reload</button>
 <br>
