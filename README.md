@@ -1,6 +1,6 @@
-# Chordal Graph Web Application
+# A Platform for Generation and Visualization of Graphs
 
-Observe the process of generating a Chordal Graph, as well as adding/removing links from graphs to see their behaviour.
+Effortlessly generate and visualize various graph algorithms with our powerful platform
 
 ## Prerequesite Software
 
