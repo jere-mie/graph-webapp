@@ -2,53 +2,64 @@ import os
 import json
 import sys
 from flask import Flask, abort, jsonify, render_template, request
-from chordal_graph_interface import generateCG
-from FulkersonRyserV2 import DirectedGraphGeneration as kw
-from Py_Program import ServerExternalNetworkResilience as nr
-from HavelHakimi import myHHFunction as hh
+from graph_algos.chordal_graph_interface import generateCG
+from graph_algos import FR_DirectedGraphGeneration as kw
+from graph_algos import NetworkResilience as nr
+from graph_algos import HavelHakimi as hh
 import networkx as nx
 
+"""
+Setup
+"""
+
 # getting config details
-with open('example-config.json') as f:
-    data = json.load(f)
+with open('config.json') as f:
+    config = json.load(f)
 
 # initializing Flask
 app = Flask(__name__)
-app.config['SECRET_KEY'] = data['secret_key']
+app.config['SECRET_KEY'] = config['secret_key']
 
+"""
+Page routes
+"""
 
 @app.route('/home', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
     return render_template('home.html')
 
-
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
-
 
 @app.route('/graph', methods=['GET'])
 def graph():
     return render_template('graph.html')
 
-
 @app.route('/graphtemplate', methods=['GET'])
 def graphtemplate():
     return render_template('graph-template.html')
 
-# Error handlers
+@app.route('/graph/<name>', methods=['GET'])
+def graphapp(name):
+    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi'}:
+        abort(404)
+    return render_template(f'{name}.html')
 
+"""
+Error handlers
+"""
 
 @app.errorhandler(400)
 def resource_not_found(e):
     return jsonify(error=str(e)), 400
 
-# API endpoints for frontend to consume
+"""
+API endpoints
+"""
 
 # endpoint for chordal graph
-
-
 @app.route('/api/unified-graph', methods=['GET'])
 def chordal():
     nodes = int(request.args.get('nodes'))
@@ -103,8 +114,7 @@ def chordal():
         graphs[0] = complete_graph
     return jsonify(graphs)
 
-
-# we are receiving two lists from frontens, indegrees and outdegrees, whose elements should be seperated by a comma in the request
+# we are receiving two lists from frontend, indegrees and outdegrees, whose elements should be seperated by a comma in the request
 @app.route('/api/fulkerson', methods=['GET'])
 def fulkersonryser():
     G = nx.MultiDiGraph()
@@ -125,8 +135,6 @@ def fulkersonryser():
     return kw.constructDirectedGraph(G, sortedDegList, num_nodes)
 
 # we are receiving one list from frontend, a list of node degrees
-
-
 @app.route('/api/havelhakimi', methods=['GET'])
 def havelhakimi():
     degree_list_input = request.args.get("degreelist")
@@ -169,21 +177,16 @@ def network_resilience():
     map(adjList2linkPairs, ret)
     return ret
 
-
-
-@app.route('/graph/<name>', methods=['GET'])
-def graphapp(name):
-    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi'}:
-        abort(404)
-    return render_template(f'{name}.html')
-
+"""
+Running website
+"""
 
 # running the site
 if __name__ == '__main__':
     # run this command with any additional arg to run in production
     if len(sys.argv) > 1:
         print('<< PROD >>')
-        os.system(f"gunicorn -b '0.0.0.0:{data['port']}' server:app")
+        os.system(f"gunicorn -b '0.0.0.0:{config['port']}' server:app")
     # or just run without an additional arg to run in debug
     else:
         print('<< DEBUG >>')
