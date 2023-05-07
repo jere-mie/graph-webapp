@@ -1,0 +1,30 @@
+{% extends 'graph-template.html' %}
+
+{% block sidebar %}
+<h4>Random Graph Evolution</h4>
+<p>Number of Nodes</p>
+<input type="number" min="0" step="1" class="form-control" id="numNodes" required autofocus>
+<br>
+<p>Input a real number in the range (0,1)</p>
+<input type="number" min="0" max="1" class="form-control" id="prob" required autofocus>
+<hr/>
+<button type="button" class="btn btn-primary my-2" id="btnGenGraph" onclick="btnOnClick(this.id)">Generate Graph</button>
+<br>
+<button type="button" class="btn btn-primary my-2" id="btnNext" onclick="btnOnClick(this.id)" >Next</button>
+<hr/>
+<button type="button" class="btn btn-primary mt-4" id="reload" onclick="window.location.href=window.location.href">Reload</button>
+<br>
+<button type="button" class="btn btn-primary mt-2" id="reload" onclick="simulation.stop()">Stop Simulation</button>
+<div class="alert alert-warning alert-dismissible my-4" id="Alert" hidden>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Note!</strong> Python does not generate a complete graph, please continue to next step
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/random-graph-evolution/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/random-graph-evolution/app.js') }}"></script>
+
+{% endblock %}

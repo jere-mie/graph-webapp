@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+<!-- we hide the footer on the graph app pages -->
+{% set noFooter = True %}
+
+{% block customhead %}
+
+<!-- graph styles -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/graph-app.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/graph-sheet.css') }}" />
+
+{% endblock %} 
+
+{% block content %}
+
+<style>
+    #graphapp{
+        height: calc(100vh - 90px);
+        width: 100%;
+    }
+    #graphapp div, #graphapp main {
+        height: 100%;
+    }
+    #sidebar {
+        padding: 24px 32px;
+        overflow-y: scroll;
+    }
+</style>
+
+<div class="row" id="graphapp">
+    <div class="col-3 bg-light" id="sidebar">
+        {% block sidebar %}{% endblock %}
+
+    </div>
+    <main role="main" class="col-9">
+        <div id="svgViewPort"></div>
+    </main>
+</div>    
+
+<!-- D3 -->
+<script src="{{ url_for('static', filename='js/d3/d3.v5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3/d3-transition.v1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3/d3-ease.v1.min.js') }}"></script>
+
+{% block scripts %}{% endblock %}
+
+{% endblock %}

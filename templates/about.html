@@ -1,0 +1,36 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div class=" hero hero-sm">
+    <h1>ABOUT US</h1>
+    <p>We are a group of senior Computer Science students at the University of Windsor. Our mission is to provide a tool for anyone to use to learn more about chordal graphs!</p>
+</div>
+<div class="cardsection">
+    <h2>Meet the Team</h2><br>
+    <div class="carditems">
+        <div class="carditem">
+            <img src="{{ url_for('static', filename='images/jeremie.png') }}" alt="" srcset="">
+            <h5>Jeremie Bornais</h5>
+            <p>Software Developer</p>
+            <small>borna113@uwindsor.ca</small>
+        </div>
+        <div class="carditem">
+            <img src="{{ url_for('static', filename='images/ekjot.png') }}" alt="" srcset="">
+            <h5>Ekjot Multani</h5>
+            <p>Software Developer</p>
+            <small>multanie@uwindsor.ca</small>
+        </div>
+        <div class="carditem">
+            <img src="{{ url_for('static', filename='images/zain.png') }}" alt="" srcset="">
+            <h5>Zain Raza</h5>
+            <p>Software Developer</p>
+            <small>razaz@uwindsor.ca</small>
+        </div>
+        <div class="carditem">
+            <img src="{{ url_for('static', filename='images/asish.png') }}" alt="" srcset="">
+            <h5>Dr. Asish Mukhopadhyay</h5>
+            <p>Supervisor</p>
+            <small>asishm@uwindsor.ca</small>
+        </div>    
+    </div>
+</div>
+{% endblock %}

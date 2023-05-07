@@ -1,0 +1,52 @@
+{% extends 'layout.html' %} {% block content %}
+
+<div class="hero">
+    <h1>GENERATION AND VISUALIZATION OF GRAPHS</h1>
+    <p>Effortlessly generate and visualize various graph algorithms with our powerful platform</p>
+    <br />
+    <p>
+        <a href="{{ url_for('graph') }}" class="btn btn-primary btn-lg">Start Graphing</a>
+    </p>
+</div>
+<div class="cardsection">
+    <h2>Key Features</h2><br>
+    <div class="carditems">
+        <div class="carditem">
+            <h5>Graphing Tool</h5>
+            <p>Provide a number of nodes and edges to generate a chordal graph</p>
+        </div>
+        <div class="carditem">
+            <h5>Visual Tool</h5>
+            <p>Observe the addition and removal of edges from the graph</p>
+        </div>
+        <div class="carditem">
+            <h5>Downloads Tool</h5>
+            <p>Download images of the graphs you've generated for future use and practice</p>
+        </div>
+        <div class="carditem">
+            <h5>Additional Reading</h5>
+            <p>Further your knowledge with provided materials from published sources</p>
+        </div>    
+    </div>
+</div>
+<div class="readingsection">
+    <h2>More Reading</h2><br>
+    <div class="row">
+        <div class="col-md-4 reading">
+            <h5>Chordal Graphs and their clique graphs</h5>
+            <p>In the first part of this paper, a new structure for chordal graph is introduces, namely the clique graph. This structure is shown to be optimal with regard to the set of clique trees. The greedy aspect of the recognition algorithms of chordal graphs is studied. A new greedy algorithm that generalizes both Maximal cardinality Search and Lexicographic Breadth first Search is presented.</p>
+            <a href="{{ url_for('static', filename='pdfs/WGChordaux.pdf') }}" class="btn btn-secondary" target="_blank">Continue Reading</a>
+        </div>
+        <div class="col-md-4 reading">
+            <h5>An Introduction to Chordal Graphs and Clique Trees</h5>
+            <p>Clique trees and chordal graphs have carved out a niche for themselves in recent work on sparse matrix algorithms, due primarily to research questions associated with advanced computer architectures. This paper is a unified and elementary introduction to the standard characterizations of chordal graphs and clique trees.</p>
+            <a href="{{ url_for('static', filename='pdfs/6560471.pdf') }}" class="btn btn-secondary" target="_blank">Continue Reading</a>
+        </div>
+        <div class="col-md-4 reading">
+            <h5>The Application of Chordal Graphs to Inferring Phylogenetic Trees of Languages</h5>
+            <p>Test the generation of phylogenetic trees from datasets, and explore the application of chordal graphs on them.</p>
+            <a href="{{ url_for('static', filename='pdfs/I11-1061.pdf') }}" class="btn btn-secondary" target="_blank">Continue Reading</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

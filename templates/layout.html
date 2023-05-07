@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chordal Graph Generation Web Application</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="University of Windsor" />
+    <meta property="og:title" content="GENERATION AND VISUALIZATION OF GRAPHS" />
+    <meta property="og:description"
+        content="Effortlessly generate and visualize various graph algorithms with our powerful platform" />
+    <meta property="og:type" content="website" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap5.2.3.min.css') }}">
+
+    <!--Style-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- custom page head -->
+    {% block customhead %}{% endblock %}
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-white">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo-dark.png') }}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('graph') }}">Graphing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/jere-mie/graph-webapp">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+    {% if noFooter %}
+    
+    {% else %}
+    <br><br><br>
+    <footer class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{{ url_for('static', filename='images/logo-light.png') }}" alt="">
+                    <br><br>
+                    <p>This website was put together to provide a visual interface for students to learn about Chordal graphs.</p>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <br>
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('graph') }}">Graphing</a></li>
+                        <li><a href="https://github.com/jere-mie/graph-webapp">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <br>
+                    <h5>Contact Us</h5>
+                    <ul>
+                        <li><a href="mailto:borna113@uwindsor.ca">borna113@uwindsor.ca</a></li>
+                        <li><a href="mailto:razaz@uwindsor.ca">razaz@uwindsor.ca</a></li>
+                        <li><a href="mailto:multanie@uwindsor.ca">multanie@uwindsor.ca</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
+    <!-- bootstrap js -->
+    <script src="{{ url_for('static', filename='js/bootstrap5.2.3.bundle.min.js') }}"></script>
+</body>
+
+</html>
