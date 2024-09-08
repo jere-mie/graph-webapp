@@ -13,6 +13,8 @@ import math
 # The purpose of this program is to provide functions that automatically generate
 # graphic sequences of certain types for experimentation
 
+# Constructs and returns the nodes and edges for 3 graphs including
+# The original graph, k-factor graph, and d - k graph
 def constructGraph(degSeq, n, k):
     G1 = nx.MultiGraph()
     G2 = nx.MultiGraph()

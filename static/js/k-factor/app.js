@@ -1,3 +1,4 @@
+// There will be 3 different graphs displayed
 let nodes = []
 let lastNodeId = 0
 let links = []
@@ -39,6 +40,7 @@ const svg = d3.select('#svgViewPort')
 fileName = "N4E4/kfactor.json"
 importData(fileName);
 
+// Simulation of original graph
 const simulation = d3.forceSimulation(nodes)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
@@ -56,6 +58,7 @@ const simulation = d3.forceSimulation(nodes)
             .attr('cy', d => d.y);
     });
 
+// Simulation of k-factor graph
 const simulation2 = d3.forceSimulation(nodes2)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
@@ -73,6 +76,7 @@ const simulation2 = d3.forceSimulation(nodes2)
             .attr('cy', d => d.y);
     });
 
+// Simulation of d - k graph
 const simulation3 = d3.forceSimulation(nodes3)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
@@ -106,6 +110,7 @@ const drag = d3.drag()
         d.fy = null;
     });
 
+// Original graph
 let g = svg.append('g').attr('class', 'everything');
 let link = g.append('g').selectAll('line');
 let node = g.append('g'). selectAll('circle');
@@ -117,6 +122,7 @@ let title = g.append('text')
     .style("text-decoration", "underline")
     .text("Original Graph");
 
+// K-factor graph
 let g2 = svg.append('g').attr('class', 'everything');
 let link2  = g2.append('g').selectAll('line');
 let node2 = g2.append('g'). selectAll('circle');
@@ -128,6 +134,7 @@ let title2 = g2.append('text')
     .style("text-decoration", "underline")
     .text("k-Factor Graph");
 
+// d - k graph
 let g3 = svg.append('g').attr('class', 'everything');
 let link3  = g3.append('g').selectAll('line');
 let node3 = g3.append('g'). selectAll('circle');

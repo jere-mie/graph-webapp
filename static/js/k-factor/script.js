@@ -3,6 +3,7 @@ function importData(fileName) {
         .then(function(d) {
 
             // check if nodes have changed
+            // Original graph
             const cnodesIDs = nodes.map(n => n.id).toString()
             const newNodesIDs = d.nodes.map(n => n.id).toString()
             if(cnodesIDs != newNodesIDs) {
@@ -12,6 +13,7 @@ function importData(fileName) {
             links = d.links
             restart();
 
+            // K-factor graph
             const cnodesIDs2 = nodes2.map(n => n.id).toString()
             const newNodesIDs2 = d.nodes2.map(n => n.id).toString()
             if(cnodesIDs2 != newNodesIDs2) {
@@ -21,6 +23,7 @@ function importData(fileName) {
             links2 = d.links2
             restart();
 
+            // d - k graph
             const cnodesIDs3 = nodes3.map(n => n.id).toString()
             const newNodesIDs3 = d.nodes3.map(n => n.id).toString()
             if(cnodesIDs3 != newNodesIDs3) {

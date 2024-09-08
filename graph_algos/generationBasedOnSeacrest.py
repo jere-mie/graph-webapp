@@ -4,6 +4,9 @@ import copy
 import random
 import math
 
+# Functions for generating graphic sequences with k-factors
+
+# Displays a given graph G and message with matplotlib
 def displayGraph(G, message):
     ##nx.draw(G, with_labels=True)
     ##plt.suptitle(message) ##AM, 16 Dec, 2020: When is this printed ? Changing from title to suptitle printed this
@@ -31,6 +34,7 @@ def displayGraph(G, message):
     plt.axis('off')
     plt.show()
 
+# Generates a degree sequence with given size, max val, min val
 def GenerateDegrees(n, minDeg, maxDeg):
     degSeq = []
     sumDeg = 0
