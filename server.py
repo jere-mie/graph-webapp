@@ -6,6 +6,7 @@ from graph_algos.chordal_graph_interface import generateCG
 from graph_algos import FR_DirectedGraphGeneration as kw
 from graph_algos import NetworkResilience as nr
 from graph_algos import HavelHakimi as hh
+from graph_algos import kfactor as kf
 import networkx as nx
 
 """
@@ -43,7 +44,7 @@ def graphtemplate():
 
 @app.route('/graph/<name>', methods=['GET'])
 def graphapp(name):
-    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi'}:
+    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi', 'k-factor'}:
         abort(404)
     return render_template(f'{name}.html')
 
@@ -146,11 +147,28 @@ def havelhakimi():
     graph = hh.constructGraph(len(degreeList), degreeList, nx.Graph())
     return jsonify(graph)
 
+@app.route('/api/k-factor', methods=['GET'])
+def kfactor():
+    degree_list_input = request.args.get("degreelist")
+    print(degree_list_input)
+    degree_list_input = degree_list_input.split(",")
+    print(degree_list_input)
+    degreeList = [int(x) for x in degree_list_input]\
+
+
+    k = degreeList.pop()
+    print(k)
+    n = len(degreeList)
+
+    graphs = kf.constructGraph(degreeList, n, k)
+
+    return jsonify(graphs)
+
 @app.route('/api/network_resilience', methods=['GET'])
 def network_resilience():
     inputfile = request.args.get("file")
     num_nodes = request.args.get("num_nodes")
-    fault_percent = request.args.get("fault_percent");
+    fault_percent = request.args.get("fault_percent")
     resilience_type = request.args.get("resilience_type")
 
     def adjList2linkPairs(adjlist):
