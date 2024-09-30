@@ -7,7 +7,9 @@ from graph_algos import FR_DirectedGraphGeneration as kw
 from graph_algos import NetworkResilience as nr
 from graph_algos import HavelHakimi as hh
 from graph_algos import kfactor as kf
+from graph_algos import generationBasedOnSeacrest as sc
 import networkx as nx
+import random
 
 """
 Setup
@@ -163,6 +165,48 @@ def kfactor():
     graphs = kf.constructGraph(degreeList, n, k)
 
     return jsonify(graphs)
+
+@app.route('/api/give_sequence', methods=['GET'])
+def give_sequence():
+    give_type = request.args.get("type")
+    if(give_type == 'connected'):
+        # Needs to be randomized numbers
+        a = random.randint(1, 25) # second param sets the max degree in the sequence
+        b = random.randint(1, a)
+
+        response_seq = sc.generateSequenceConnected(a, b)
+
+        # Find one of the k's that fit
+        notfound = True
+        while(notfound):
+            # k < largest degree
+            k = random.randint(2, response_seq[0] - 1)
+
+            # Ensure the sequence has this k-factor
+            mySeqMinK = []
+            for i in response_seq:
+                if i - k > 0:
+                    mySeqMinK.append(i - k)
+            
+            if(sc.checkEGI(mySeqMinK)):
+                # k found
+                notfound = False
+        
+        response_seq.append(k)
+        return jsonify(response_seq)
+    elif(give_type == 'disconnected'):
+        # Needs to be randomized
+        # n must be even and atleast 7 (which implies 8)
+        n = random.randrange(8, 25, 2) # second param sets the max degree in the sequence
+        # Usually you fix a k = s < n/2, but 2s <= x <= n-s-1
+        k = random.randint(2, int((n-1)/3))
+        response_seq = sc.generateSequenceDisconnected(n, k)
+        response_seq.append(k)
+        return jsonify(response_seq)
+    # should never reach here
+    print("BAD****************")
+    return -1
+        
 
 @app.route('/api/network_resilience', methods=['GET'])
 def network_resilience():

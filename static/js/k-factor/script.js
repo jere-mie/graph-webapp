@@ -103,3 +103,41 @@ function kfactor(){
     })
     .catch(error => console.error(error));
 }
+
+function giveConnected(){
+    const url = "/api/give_sequence?type=connected"
+    console.log(url)
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        k = data.pop()
+        console.log(data);
+        console.log("K: " + k)
+        // Edit form to have generated sequence
+        sequence_form = document.getElementById("deglist");
+        k_form = document.getElementById("k_val");
+        sequence_form.value = data;
+        k_form.value = k
+    }
+    )
+    .catch(error => console.error(error));
+}
+
+function giveDisconnected(){
+    const url = "/api/give_sequence?type=disconnected"
+    console.log(url)
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        k = data.pop()
+        console.log(data);
+        console.log("K: " + k)
+        // Edit form to have generated sequence
+        sequence_form = document.getElementById("deglist");
+        k_form = document.getElementById("k_val");
+        sequence_form.value = data;
+        k_form.value = k
+    }
+    )
+    .catch(error => console.error(error));
+}

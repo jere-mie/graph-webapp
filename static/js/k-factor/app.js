@@ -45,7 +45,7 @@ const simulation = d3.forceSimulation(nodes)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
     .force('x', d3.forceX(width/2))
-    .force('y', d3.forceY((height/2) - 300))
+    .force('y', d3.forceY((height/2) - 500))
     .on('tick', () => {
         link
             .attr('x1', d => d.source.x)
@@ -62,7 +62,7 @@ const simulation = d3.forceSimulation(nodes)
 const simulation2 = d3.forceSimulation(nodes2)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
-    .force('x', d3.forceX((width/2) - 200))
+    .force('x', d3.forceX((width/2) - 400))
     .force('y', d3.forceY(height/2))
     .on('tick', () => {
         link2
@@ -80,7 +80,7 @@ const simulation2 = d3.forceSimulation(nodes2)
 const simulation3 = d3.forceSimulation(nodes3)
     .force('charge', d3.forceManyBody().strength(-1000))
     .force('link', d3.forceLink().id((d) => d.id).distance(75))
-    .force('x', d3.forceX((width/2) + 200))
+    .force('x', d3.forceX((width/2) + 400))
     .force('y', d3.forceY(height/2))
     .on('tick', () => {
         link3
@@ -116,7 +116,7 @@ let link = g.append('g').selectAll('line');
 let node = g.append('g'). selectAll('circle');
 let title = g.append('text')
     .attr("x", (width/2))
-    .attr("y", (height/2) - 500)
+    .attr("y", (height/2) - 800)
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
     .style("text-decoration", "underline")
@@ -127,7 +127,7 @@ let g2 = svg.append('g').attr('class', 'everything');
 let link2  = g2.append('g').selectAll('line');
 let node2 = g2.append('g'). selectAll('circle');
 let title2 = g2.append('text')
-    .attr("x", (width/2) - 200)
+    .attr("x", (width/2) - 500)
     .attr("y", (height/2) - 200)
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
@@ -139,7 +139,7 @@ let g3 = svg.append('g').attr('class', 'everything');
 let link3  = g3.append('g').selectAll('line');
 let node3 = g3.append('g'). selectAll('circle');
 let title3 = g3.append('text')
-    .attr("x", (width/2) + 200)
+    .attr("x", (width/2) + 500)
     .attr("y", (height/2) - 200)
     .attr("text-anchor", "middle")
     .style("font-size", "16px")

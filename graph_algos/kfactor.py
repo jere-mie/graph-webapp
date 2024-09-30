@@ -15,6 +15,10 @@ import math
 
 # Constructs and returns the nodes and edges for 3 graphs including
 # The original graph, k-factor graph, and d - k graph
+# Params:
+# degSeq -> The degree Sequence we want to realize
+# n -> The length of degSeq
+# k -> The value of k for the k-factorable regular graph of deqSeq and the d - k graph
 def constructGraph(degSeq, n, k):
     G1 = nx.MultiGraph()
     G2 = nx.MultiGraph()

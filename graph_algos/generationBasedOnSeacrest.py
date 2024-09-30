@@ -57,12 +57,15 @@ def GenerateDegrees(n, minDeg, maxDeg):
 
 # ***** Between here and the bottom stars was implemented June 2024 - Lucas Sarweh
 
+# Generates a graphic sequence with connected k-factors based on
+# trial and error heuristic in section 2
 # Params:
 # k - an integer
 # a, b - integers
 # Restrictions:
 # k >= 2
 # a >= b > 0
+# WIP: k < mySeq[0] <= a, otherwise the graph is realizable, but a k-factor will not be found
 def generateSequenceConnectedTrialError(k, a, b):
     # WIP
 
@@ -160,7 +163,7 @@ def checkEGI(seq):
 
 # This checks if a degree sequence has a connected k-factor using
 # Σ(i=1 to s) d[i] < s(n - s - 1) + Σ(i=0 to s-1) d[n-i]
-# for each s < n/2
+# for each s < n/2 from (2) in section 2
 def checkConnectedKFactor(seq):
     n = len(seq)
     # For each s < n/2
@@ -185,18 +188,19 @@ def checkConnectedKFactor(seq):
     # All values of s pass, has connected k-factor
     return True
 
+# Generates a graphic sequence with a connected
+# k-factor from section 2 page 3, on removing trial and error
 # Params:
 # k - an integer, may not be required
 # a, b - integers
 # Restrictions:
-# k >= 2
 # a >= b > 0
-# 2 > a - b
-def generateSequenceConnected(k, a, b):
+# 2 != a - b
+def generateSequenceConnected(a, b):
     # WIP
 
     # Check restrictions
-    if k < 2 or a < b or b <= 0 or a - b >= 2:
+    if a < b or b <= 0 or a - b == 2:
         print("Requirments not met")
         return 0
 
@@ -215,6 +219,8 @@ def generateSequenceConnected(k, a, b):
 
 # Find minumum possible length of the sequence
 # n > max{4/(2 + b − a), (a + b + 1)^2/4b}
+# Restrictions:
+# a - b != 2
 def findMinN(a, b):
     # Calculate max
     n = max(4 / (2 + b - a), math.pow((a + b + 1), 2) / (4 * b))
@@ -227,8 +233,8 @@ def findMinN(a, b):
 # Sequence will be of the form (n-1, ..., n-1, x, ..., x, s, ..., s)
 # x lies in the range: 2s <= x <= n-s-1
 # Requirements:
-# n - Must be even
-# k - k = s < n/2
+# n -> Must be even
+# k -> k = s < n/2
 # 3k + 1 <= n
 def generateSequenceDisconnected(n, k):
     # WIP
@@ -248,7 +254,7 @@ def generateSequenceDisconnected(n, k):
         return None
 
     mySeq = []
-    # Random value for x
+    # Random value for x between its restrictions
     x = random.randint(2*s, n - s - 1)
     
     # Make [n - 1] * s entries at the front, [s] * s entries at the end, and [x] * n - 2s middle entries
@@ -264,8 +270,11 @@ def generateSequenceDisconnected(n, k):
 
 # *****
 
-#this function implements the Hakimi-Havel algorithm
-#def constructGraph(n, degSeq, G):
+# this function implements the Hakimi-Havel algorithm
+# Params:
+# n -> degree sequence length
+# degSeq - > The degree sequence
+# G -> Output graph
 def constructGraph(n, degSeq, G):
     print ("n=", n)
     #Initialize
