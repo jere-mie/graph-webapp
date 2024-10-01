@@ -201,7 +201,7 @@ def generateSequenceConnected(a, b):
 
     # Check restrictions
     if a < b or b <= 0 or a - b == 2:
-        print("Requirments not met")
+        print("Requirements not met")
         return 0
 
     # Find length of sequence d

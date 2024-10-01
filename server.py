@@ -170,17 +170,20 @@ def kfactor():
 def give_sequence():
     give_type = request.args.get("type")
     if(give_type == 'connected'):
-        # Needs to be randomized numbers
-        a = random.randint(1, 25) # second param sets the max degree in the sequence
-        b = random.randint(1, a)
+        # Needs to be randomized numbers, excluding 1 neighbour edges
+        a = random.randint(2, 25) # second param sets the max degree in the sequence
+        b = random.randint(2, a)
+        # If a - b == 2, just make a larger so it doesn't
+        if(a - b == 2):
+            a += 1
 
         response_seq = sc.generateSequenceConnected(a, b)
 
         # Find one of the k's that fit
         notfound = True
         while(notfound):
-            # k < largest degree
-            k = random.randint(2, response_seq[0] - 1)
+            # k <= smallest degree
+            k = random.randint(2, max(response_seq[-1], 2))
 
             # Ensure the sequence has this k-factor
             mySeqMinK = []
