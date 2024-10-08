@@ -191,7 +191,6 @@ def checkConnectedKFactor(seq):
 # Generates a graphic sequence with a connected
 # k-factor from section 2 page 3, on removing trial and error
 # Params:
-# k - an integer, may not be required
 # a, b - integers
 # Restrictions:
 # a >= b > 0
