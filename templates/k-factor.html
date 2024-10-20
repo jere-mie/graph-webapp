@@ -1,0 +1,38 @@
+{% extends 'graph-template.html' %}
+
+{% block sidebar %}
+<h4>K-Factor Graphs</h4>
+<p>Note: Input list should be comma-separated lists of integers, with no space between them!</p>
+<!-- <p>Number of Nodes</p>
+<input type="number" min="1" step="1" class="form-control" id="numNodes" required autofocus> -->
+<br>
+<p>Input a comma-separated sequence of integers (A degree sequence)</p>
+<input type="text" class="form-control" id="deglist" required autofocus value="1,1,1,1">
+<p>Input a integer for k greater than 1</p>
+<input type="number" class="form-control" id="k_val" required autofocus value="2">
+<button id="genCon" type="button" class="btn btn-primary my-2" onclick="giveConnected()">Connected Sequence</button>
+<button id="genDis" type="button" class="btn btn-primary my-2" onclick="giveDisconnected()">Disconnected Sequence</button>
+<br>
+
+<!-- <input type="number" min="0" max="1" class="form-control" id="prob" required autofocus> -->
+<hr/>
+<p>Generates the original, k-factor and d - k graphs. Given graph must be k-factorable with input k.</p>
+<button id="genBtn" type="button" class="btn btn-primary my-2" onclick="kfactor()">Run</button>
+<hr/>
+<button type="button" class="btn btn-primary mt-4" onclick="window.location.href=window.location.href">Reload</button>
+<br>
+<button type="button" class="btn btn-primary mt-2" onclick="simulation.stop()">Stop Simulation</button>
+<div class="alert alert-warning alert-dismissible my-4" id="Alert" hidden>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Note!</strong> Python does not generate a complete graph, please continue to next step
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/k-factor/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/k-factor/app.js') }}"></script>
+
+
+{% endblock %}

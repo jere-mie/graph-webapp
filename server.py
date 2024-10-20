@@ -6,7 +6,10 @@ from graph_algos.chordal_graph_interface import generateCG
 from graph_algos import FR_DirectedGraphGeneration as kw
 from graph_algos import NetworkResilience as nr
 from graph_algos import HavelHakimi as hh
+from graph_algos import kfactor as kf
+from graph_algos import generationBasedOnSeacrest as sc
 import networkx as nx
+import random
 
 """
 Setup
@@ -43,7 +46,7 @@ def graphtemplate():
 
 @app.route('/graph/<name>', methods=['GET'])
 def graphapp(name):
-    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi'}:
+    if name not in {"chordal-graph-k-chromatic", "unified-chordal-graph", "random-graph-evolution", "binomial-graph-evolution", "network-resilience-test", 'fulkerson-ryser', 'havel-hakimi', 'k-factor'}:
         abort(404)
     return render_template(f'{name}.html')
 
@@ -146,11 +149,73 @@ def havelhakimi():
     graph = hh.constructGraph(len(degreeList), degreeList, nx.Graph())
     return jsonify(graph)
 
+@app.route('/api/k-factor', methods=['GET'])
+def kfactor():
+    degree_list_input = request.args.get("degreelist")
+    print(degree_list_input)
+    degree_list_input = degree_list_input.split(",")
+    print(degree_list_input)
+    degreeList = [int(x) for x in degree_list_input]\
+
+
+    k = degreeList.pop()
+    print(k)
+    n = len(degreeList)
+
+    graphs = kf.constructGraph(degreeList, n, k)
+
+    return jsonify(graphs)
+
+@app.route('/api/give_sequence', methods=['GET'])
+def give_sequence():
+    give_type = request.args.get("type")
+    if(give_type == 'connected'):
+        # Needs to be randomized numbers, excluding 1 neighbour edges
+        a = random.randint(2, 25) # second param sets the max degree in the sequence
+        b = random.randint(2, a)
+        # If a - b == 2, just make a larger so it doesn't
+        if(a - b == 2):
+            a += 1
+
+        response_seq = sc.generateSequenceConnected(a, b)
+
+        # Find one of the k's that fit
+        notfound = True
+        while(notfound):
+            # k <= smallest degree
+            k = random.randint(2, max(response_seq[-1], 2))
+
+            # Ensure the sequence has this k-factor
+            mySeqMinK = []
+            for i in response_seq:
+                if i - k > 0:
+                    mySeqMinK.append(i - k)
+            
+            if(sc.checkEGI(mySeqMinK)):
+                # k found
+                notfound = False
+        
+        response_seq.append(k)
+        return jsonify(response_seq)
+    elif(give_type == 'disconnected'):
+        # Needs to be randomized
+        # n must be even and atleast 7 (which implies 8)
+        n = random.randrange(8, 25, 2) # second param sets the max degree in the sequence
+        # Usually you fix a k = s < n/2, but 2s <= x <= n-s-1
+        k = random.randint(2, int((n-1)/3))
+        response_seq = sc.generateSequenceDisconnected(n, k)
+        response_seq.append(k)
+        return jsonify(response_seq)
+    # should never reach here
+    print("BAD****************")
+    return -1
+        
+
 @app.route('/api/network_resilience', methods=['GET'])
 def network_resilience():
     inputfile = request.args.get("file")
     num_nodes = request.args.get("num_nodes")
-    fault_percent = request.args.get("fault_percent");
+    fault_percent = request.args.get("fault_percent")
     resilience_type = request.args.get("resilience_type")
 
     def adjList2linkPairs(adjlist):
